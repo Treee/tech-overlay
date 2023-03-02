@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Memb-Font";
+  src: url("./assets/fonts/IronstrikeSemiBold.otf");
+}
+html {
+  font-family: Memb-Font;
+}
+.my-footer {
+  text-shadow: none;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}

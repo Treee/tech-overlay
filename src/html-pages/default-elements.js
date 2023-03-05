@@ -48,7 +48,7 @@ class DefaultHTMLPageElements {
     adminPageRoute.innerHTML = "ADMIN";
 
     const settingsPageRoute = document.createElement("div");
-    settingsPageRoute.innerHTML = "SETTINGS";
+    settingsPageRoute.innerHTML = "CLIENT";
 
     element.appendChild(adminPageRoute);
     element.appendChild(settingsPageRoute);

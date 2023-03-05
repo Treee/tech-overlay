@@ -9,7 +9,7 @@ class AdminPage {
     const adminPage = document.createElement("div");
     adminPage.classList.add("admin-page");
 
-    const techOverlayControl = new TechOverlayControl();
+    const techOverlayControl = new TechOverlayControl(this._dataStore);
     adminPage.appendChild(techOverlayControl.buildElement());
 
     return adminPage;

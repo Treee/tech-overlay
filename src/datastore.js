@@ -27,13 +27,21 @@ class LocalSavedData {
   }
 
   saveData() {
+    // console.log(`Saving ${this._techOverlayStore}`);
     localStorage.setItem("techOverlayStore", JSON.stringify(this._techOverlayStore));
+    // console.log(`Saving ${this._uiSettingsOverlayStore}`);
     localStorage.setItem("uiSettingsOverlayStore", JSON.stringify(this._uiSettingsOverlayStore));
   }
 
   loadData() {
-    this._techOverlayStore = JSON.parse(localStorage.getItem("techOverlayStore"));
-    this._uiSettingsOverlayStore = JSON.parse(localStorage.getItem("uiSettingsOverlayStore"));
+    const techData = JSON.parse(localStorage.getItem("techOverlayStore"));
+    if (techData) {
+      this._techOverlayStore = techData;
+    }
+    const uiData = JSON.parse(localStorage.getItem("uiSettingsOverlayStore"));
+    if (uiData) {
+      this._uiSettingsOverlayStore = uiData;
+    }
   }
 
   deleteData(key) {

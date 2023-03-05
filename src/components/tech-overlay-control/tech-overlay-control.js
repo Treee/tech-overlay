@@ -22,6 +22,7 @@ class TechOverlayControl {
   buildTechSettingsPanel() {
     //header
     const headerElement = document.createElement("h3");
+    headerElement.classList.add("tech-header");
     headerElement.innerHTML = "Technology Overlay";
 
     const element = document.createElement("div");

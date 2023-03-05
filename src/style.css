@@ -29,6 +29,12 @@ html {
   bottom: 0;
 }
 
+.tech-header {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin: 0.5rem;
+}
 .tech-settings {
   width: 40%;
   display: inline-flex;
@@ -46,6 +52,7 @@ html {
 }
 
 .setting-button {
+  border-radius: 1rem;
   color: white;
   padding: 0.8rem 1.2rem;
   text-align: center;

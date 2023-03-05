@@ -55,6 +55,12 @@ class DefaultHTMLPageElements {
 
     return element;
   }
+  buildFavIcon() {
+    const element = document.createElement("link");
+    element.type = "shortcut icon";
+    element.href = "favicon.gif";
+    return element;
+  }
 }
 
 export { DefaultHTMLPageElements };

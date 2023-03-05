@@ -1,3 +1,7 @@
-import { DefaultPage } from "./html-pages/base-page";
+import { TechBasePage } from "./html-pages/base-page";
+import { LocalSavedData } from "./datastore";
 
-new DefaultPage().buildHTMLBasePage();
+const savedData = new LocalSavedData();
+savedData.loadData();
+
+new TechBasePage(savedData).buildHTMLBasePage();

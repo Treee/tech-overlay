@@ -14,6 +14,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "AoE Tech Overlay",
+      favicon: "./src/favicon.ico",
     }),
   ],
   output: {

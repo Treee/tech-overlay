@@ -7,12 +7,14 @@ class TechOverlayControl {
   }
   buildElement() {
     const element = document.createElement("div");
+    element.classList.add("left-column");
     // controls
     const controlsElement = this.buildTechSettingsPanel();
 
     // list of civs
     const civIconListBuilder = new CivIconList();
-    const civListElement = civIconListBuilder.buildElement();
+    const civListElement = civIconListBuilder.buildElement(true);
+    civListElement.classList.add("tech-civ-list");
 
     element.appendChild(controlsElement);
     element.appendChild(civListElement);

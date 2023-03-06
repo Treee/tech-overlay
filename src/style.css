@@ -24,9 +24,12 @@ html {
 .my-footer {
   text-shadow: none;
   text-align: center;
-  position: absolute;
   width: 100%;
-  bottom: 0;
+  position: absolute;
+}
+
+.left-column {
+  width: 40%;
 }
 
 .tech-header {
@@ -36,12 +39,17 @@ html {
   margin: 0.5rem;
 }
 .tech-settings {
-  width: 40%;
   display: inline-flex;
   justify-content: center;
   flex-wrap: wrap;
   flex-direction: row;
   gap: 1rem;
+}
+
+.tech-civ-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .setting-container {
@@ -61,6 +69,19 @@ html {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+}
+
+.admin-civ-icon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.admin-civ-icon:hover {
+  background-color: lightgreen;
+}
+.admin-civ-icon img {
+  width: 5rem;
+  height: 5rem;
 }
 
 .button-blue {

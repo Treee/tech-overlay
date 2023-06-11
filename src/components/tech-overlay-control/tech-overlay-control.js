@@ -18,6 +18,10 @@ class TechOverlayControl {
 
     element.appendChild(controlsElement);
     element.appendChild(civListElement);
+
+    setTimeout(() => {
+      this.modifyCivCountCSS();
+    }, 50);
     return element;
   }
 
@@ -88,11 +92,15 @@ class TechOverlayControl {
     spanLabel.innerHTML = this.sanitizeDisplayValue(label);
 
     const inputNumber = document.createElement("input");
+    inputNumber.classList.add("input-number");
     inputNumber.type = "number";
     inputNumber.id = label;
     inputNumber.value = value;
     inputNumber.addEventListener("change", (event) => {
       this.saveData(event);
+      if (event.target.id == "_numCivsPerRow") {
+        this.modifyCivCountCSS();
+      }
     });
 
     element.appendChild(elementLabel);
@@ -132,6 +140,10 @@ class TechOverlayControl {
       this._dataStore._techOverlayStore[key] = storedValue;
     });
     this._dataStore.saveData();
+  }
+  modifyCivCountCSS() {
+    const widthPercent = 100 / this._dataStore._techOverlayStore._numCivsPerRow;
+    document.querySelectorAll(".admin-civ-icon").forEach((e) => (e.style.flex = `1 0 ${widthPercent}%`));
   }
 
   sanitizeDisplayValue(value) {

@@ -29,7 +29,11 @@ html {
 }
 
 .left-column {
-  width: 40%;
+  /* width: 55%; */
+}
+
+.input-number {
+  width: 3rem;
 }
 
 .tech-header {

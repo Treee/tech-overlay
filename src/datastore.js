@@ -11,6 +11,7 @@ class TechnologyOverlayStore {
   _showStableTech = false;
   _showSiegeWorkshopTech = false;
   _autoHideDelay = 12;
+  _numCivsPerRow = 7;
 }
 class UISettingsOverlayStore {
   _fontSize = 22;
@@ -36,11 +37,13 @@ class LocalSavedData {
   loadData() {
     const techData = JSON.parse(localStorage.getItem("techOverlayStore"));
     if (techData) {
-      this._techOverlayStore = techData;
+      Object.assign(this._techOverlayStore, techData);
+      // this._techOverlayStore = techData;
     }
     const uiData = JSON.parse(localStorage.getItem("uiSettingsOverlayStore"));
     if (uiData) {
-      this._uiSettingsOverlayStore = uiData;
+      Object.assign(this._uiSettingsOverlayStore, uiData);
+      // this._uiSettingsOverlayStore = uiData;
     }
   }
 

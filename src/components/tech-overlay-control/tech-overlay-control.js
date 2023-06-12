@@ -19,6 +19,7 @@ class TechOverlayControl {
     element.appendChild(controlsElement);
     element.appendChild(civListElement);
 
+    //when the dom loads the civ list, update it with our settings
     setTimeout(() => {
       this.modifyCivCountCSS();
     }, 50);
@@ -26,17 +27,20 @@ class TechOverlayControl {
   }
 
   buildTechSettingsPanel() {
+    const element = document.createElement("div");
+    element.classList.add("tech-settings");
+
     //header
     const headerElement = document.createElement("h3");
     headerElement.classList.add("tech-header");
     headerElement.innerHTML = "Technology Overlay";
-
-    const element = document.createElement("div");
-    element.classList.add("tech-settings");
-
     element.appendChild(headerElement);
-    element.appendChild(this.buildButton("Clear", "button-red", this.onClearClicked));
-    element.appendChild(this.buildButton("Show", "button-blue", this.onShowClicked));
+
+    const buttonsElement = document.createElement("div");
+    buttonsElement.classList.add("action-buttons");
+    buttonsElement.appendChild(this.buildButton("Clear", "button-red", this.onClearClicked));
+    buttonsElement.appendChild(this.buildButton("Show", "button-blue", this.onShowClicked));
+    element.appendChild(buttonsElement);
 
     Object.keys(this._dataStore._techOverlayStore).forEach((key, index) => {
       // console.log(`key ${key} :: ${this._dataStore._techOverlayStore[key]}`);

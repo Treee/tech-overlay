@@ -4,7 +4,20 @@
 }
 html {
   font-family: Memb-Font;
+  height: 100%;
+  display: flex;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.body-content {
+  flex: 1 0 auto;
+}
+
 .my-header {
   display: inline-flex;
   flex-direction: row;
@@ -25,7 +38,9 @@ html {
   text-shadow: none;
   text-align: center;
   width: 100%;
-  position: absolute;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
 }
 
 .left-column {
@@ -63,10 +78,16 @@ html {
   justify-content: center;
 }
 
+.action-buttons {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
 .setting-button {
   border-radius: 1rem;
   color: white;
-  padding: 0.8rem 1.2rem;
+  padding: 2rem 16rem;
   text-align: center;
   text-decoration: none;
   display: inline-block;

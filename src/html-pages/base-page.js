@@ -16,11 +16,12 @@ class TechBasePage {
 
     document.head.appendChild(defaultElements.buildFavIcon());
 
-    document.body.appendChild(defaultElements.buildHeader());
-    document.body.appendChild(new AdminPage(this._dataStore).buildHTMLAdminHomePage());
-
-    const htmlRoot = document.getElementsByTagName("html")[0];
-    htmlRoot.appendChild(defaultElements.buildFooter());
+    const bodyContent = document.createElement("div");
+    bodyContent.classList.add("body-content");
+    bodyContent.appendChild(defaultElements.buildHeader());
+    bodyContent.appendChild(new AdminPage(this._dataStore).buildHTMLAdminHomePage());
+    document.body.appendChild(bodyContent);
+    document.body.appendChild(defaultElements.buildFooter());
   }
 }
 

@@ -147,7 +147,9 @@ class TechOverlayControl {
   }
   modifyCivCountCSS() {
     const widthPercent = 100 / this._dataStore._techOverlayStore._numCivsPerRow;
-    document.querySelectorAll(".admin-civ-icon").forEach((e) => (e.style.flex = `1 0 ${widthPercent}%`));
+    document.querySelectorAll(".admin-civ-icon").forEach((e) => {
+      e.style.flex = `1 0 ${widthPercent}%`;
+    });
   }
 
   sanitizeDisplayValue(value) {

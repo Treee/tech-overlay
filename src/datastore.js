@@ -12,6 +12,7 @@ class TechnologyOverlayStore {
   _showSiegeWorkshopTech = false;
   _autoHideDelay = 12;
   _numCivsPerRow = 7;
+  _numPlayersInMatch = 2;
 }
 class UISettingsOverlayStore {
   _fontSize = 22;

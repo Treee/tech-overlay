@@ -91,7 +91,7 @@ body {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: xx-large;
   margin: 4px 2px;
   cursor: pointer;
 }
@@ -104,9 +104,13 @@ body {
 .admin-civ-icon:hover {
   background-color: lightgreen;
 }
+.admin-civ-icon span {
+  pointer-events: none;
+}
 .admin-civ-icon img {
   width: 5rem;
   height: 5rem;
+  pointer-events: none;
 }
 
 .button-blue {

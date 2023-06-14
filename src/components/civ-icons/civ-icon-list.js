@@ -50,7 +50,6 @@ class CivIconList {
     });
 
     document.querySelectorAll(`.${currentPlayerClass}`).forEach((e) => {
-      console.log(e);
       e.classList.remove(currentPlayerClass);
       let localPlayerCssString = "";
       e.classList.forEach((cssClass) => {

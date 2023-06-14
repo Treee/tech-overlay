@@ -12,10 +12,14 @@ body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  background: url("./assets/images/backgrounds/ingame_diplomacy-menu_bg_full.png") no-repeat center center fixed;
+  background-size: cover;
+  align-items: center;
 }
 
 .body-content {
   flex: 1 0 auto;
+  width: 96%;
 }
 
 .my-header {
@@ -26,21 +30,26 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 10rem;
+  gap: 20%;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
   border-bottom: 1px;
   border-color: black;
   border-style: solid;
+  padding-top: 2rem;
 }
 .my-footer {
+  color: blanchedalmond;
   text-shadow: none;
   text-align: center;
   width: 100%;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+}
+.my-footer a {
+  background-color: beige;
 }
 
 .left-column {
@@ -97,12 +106,14 @@ body {
 }
 
 .admin-civ-icon {
+  border-radius: 1rem;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 1px 1px 5px 1px black;
 }
 .admin-civ-icon:hover {
-  background-color: lightgreen;
+  background-color: bisque;
 }
 .admin-civ-icon span {
   pointer-events: none;

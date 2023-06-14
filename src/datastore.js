@@ -13,6 +13,7 @@ class TechnologyOverlayStore {
   _autoHideDelay = 12;
   _numCivsPerRow = 7;
   _numPlayersInMatch = 2;
+  _label_userId = "";
 }
 class UISettingsOverlayStore {
   _fontSize = 22;
@@ -39,6 +40,10 @@ class LocalSavedData {
     const techData = JSON.parse(localStorage.getItem("techOverlayStore"));
     if (techData) {
       Object.assign(this._techOverlayStore, techData);
+      console.log(this._techOverlayStore._label_userId);
+      if (!this._techOverlayStore._label_userId) {
+        this._techOverlayStore._label_userId = crypto.randomUUID();
+      }
       // this._techOverlayStore = techData;
     }
     const uiData = JSON.parse(localStorage.getItem("uiSettingsOverlayStore"));

@@ -12,7 +12,7 @@ class TechBasePage {
   }
 
   buildHTMLBasePage() {
-    const defaultElements = new DefaultHTMLPageElements();
+    const defaultElements = new DefaultHTMLPageElements(this._dataStore);
 
     document.head.appendChild(defaultElements.buildFavIcon());
 

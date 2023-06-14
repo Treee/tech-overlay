@@ -1,4 +1,8 @@
 class DefaultHTMLPageElements {
+  _dataStore;
+  constructor(dataStore) {
+    this._dataStore = dataStore;
+  }
   buildFooter() {
     const element = document.createElement("footer");
     element.classList.add("my-footer");
@@ -46,6 +50,10 @@ class DefaultHTMLPageElements {
 
     const adminPageRoute = document.createElement("div");
     adminPageRoute.innerHTML = "ADMIN";
+    adminPageRoute.addEventListener("click", (event) => {
+      navigator.clipboard.writeText(this._dataStore._techOverlayStore._label_userId);
+      alert(`Copied to clipboard: ${this._dataStore._techOverlayStore._label_userId}`);
+    });
 
     const settingsPageRoute = document.createElement("div");
     settingsPageRoute.innerHTML = "CLIENT";

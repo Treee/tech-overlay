@@ -43,8 +43,11 @@ class TechOverlayControl {
     element.appendChild(buttonsElement);
 
     Object.keys(this._dataStore._techOverlayStore).forEach((key, index) => {
+      if (key === "_label_userId") {
+        return;
+      }
       // console.log(`key ${key} :: ${this._dataStore._techOverlayStore[key]}`);
-      if (typeof this._dataStore._techOverlayStore[key] == "boolean") {
+      if (typeof this._dataStore._techOverlayStore[key] === "boolean") {
         element.appendChild(this.buildCheckBox(key, this._dataStore._techOverlayStore[key]));
       } else if (typeof this._dataStore._techOverlayStore[key]) {
         element.appendChild(this.buildInputBox(key, this._dataStore._techOverlayStore[key]));
@@ -102,7 +105,7 @@ class TechOverlayControl {
     inputNumber.value = value;
     inputNumber.addEventListener("change", (event) => {
       this.saveData(event);
-      if (event.target.id == "_numCivsPerRow") {
+      if (event.target.id === "_numCivsPerRow") {
         this.modifyCivCountCSS();
       }
     });
@@ -136,7 +139,7 @@ class TechOverlayControl {
   saveData() {
     Object.keys(this._dataStore._techOverlayStore).forEach((key, index) => {
       let storedValue;
-      if (document.getElementById(key).value == "on") {
+      if (document.getElementById(key).value === "on") {
         storedValue = document.getElementById(key).checked;
       } else {
         storedValue = document.getElementById(key).value;

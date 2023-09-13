@@ -2,17 +2,21 @@ import { TechOverlayControl } from "../components/tech-overlay-control/tech-over
 
 class AdminPage {
   _dataStore;
-  constructor(dataStore) {
+  _civList;
+  constructor(dataStore, civList) {
     this._dataStore = dataStore;
+    this._civList = civList;
   }
-  buildHTMLAdminHomePage() {
+  buildHtml() {
+    const bodyContent = document.getElementById("dynamic-content");
+
     const adminPage = document.createElement("div");
     adminPage.classList.add("admin-page");
 
-    const techOverlayControl = new TechOverlayControl(this._dataStore);
+    const techOverlayControl = new TechOverlayControl(this._dataStore, this._civList);
     adminPage.appendChild(techOverlayControl.buildElement());
 
-    return adminPage;
+    bodyContent.appendChild(adminPage);
   }
 }
 

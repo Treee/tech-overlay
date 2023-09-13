@@ -122,7 +122,14 @@ class CivIconList {
     }
     return "";
   }
-
+  resetState() {
+    this._civIconClickCounter = 0;
+    document.querySelectorAll(".admin-civ-icon").forEach((e) => {
+      e.className = "";
+      e.classList.add("admin-civ-icon");
+      e.style.backgroundImage = "";
+    });
+  }
   sanitizeDisplayValue(value) {
     // components/civ-icons/images/aztecs.260fe25c924f8d9b9ca1.png base pattern
     value = value.replace("components/civ-icons/images/", "").replace(".png", "");

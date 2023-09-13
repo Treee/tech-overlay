@@ -5,6 +5,7 @@ class DefaultHTMLPageElements {
   }
   buildFooter() {
     const element = document.createElement("footer");
+    element.id = "footer";
     element.classList.add("my-footer");
 
     const textSpanElement1 = document.createElement("span");
@@ -46,19 +47,32 @@ class DefaultHTMLPageElements {
   }
   buildHeader() {
     const element = document.createElement("div");
+    element.id = "header";
     element.classList.add("my-header");
 
     const adminPageRoute = document.createElement("div");
-    adminPageRoute.innerHTML = "ADMIN";
+    adminPageRoute.innerHTML = "| ADMIN |";
     adminPageRoute.addEventListener("click", (event) => {
       navigator.clipboard.writeText(this._dataStore._techOverlayStore._label_userId);
-      alert(`Copied to clipboard: ${this._dataStore._techOverlayStore._label_userId}`);
+      // alert(`Copied id to clipboard: ${this._dataStore._techOverlayStore._label_userId}`);
+      window.location.href = "/";
+    });
+
+    const roundManager = document.createElement("div");
+    roundManager.innerHTML = "| ROUNDS |";
+    roundManager.addEventListener("click", (event) => {
+      window.location.href = "#matchset";
     });
 
     const settingsPageRoute = document.createElement("div");
-    settingsPageRoute.innerHTML = "CLIENT";
+    settingsPageRoute.innerHTML = "| CLIENT |";
+    settingsPageRoute.addEventListener("click", (event) => {
+      window.open(`#client/${this._dataStore._techOverlayStore._label_userId}`, "_blank");
+      // window.location.href = `#client/${this._dataStore._techOverlayStore._label_userId}`;
+    });
 
     element.appendChild(adminPageRoute);
+    element.appendChild(roundManager);
     element.appendChild(settingsPageRoute);
 
     return element;
@@ -68,6 +82,15 @@ class DefaultHTMLPageElements {
     element.type = "shortcut icon";
     element.href = "favicon.gif";
     return element;
+  }
+  initDefaultElements(hideHeader, hideFooter) {
+    document.head.appendChild(this.buildFavIcon());
+    if (!hideHeader) {
+      document.body.before(this.buildHeader());
+    }
+    if (!hideFooter) {
+      document.body.after(this.buildFooter());
+    }
   }
 }
 

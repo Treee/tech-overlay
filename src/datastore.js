@@ -40,7 +40,7 @@ class LocalSavedData {
     const techData = JSON.parse(localStorage.getItem("techOverlayStore"));
     if (techData) {
       Object.assign(this._techOverlayStore, techData);
-      console.log(this._techOverlayStore._label_userId);
+      // console.log(this._techOverlayStore._label_userId);
       if (!this._techOverlayStore._label_userId) {
         this._techOverlayStore._label_userId = crypto.randomUUID();
       }

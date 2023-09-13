@@ -2,8 +2,10 @@ import { CivIconList } from "../civ-icons/civ-icon-list";
 
 class TechOverlayControl {
   _dataStore;
-  constructor(dataStore) {
+  _civList;
+  constructor(dataStore, civList) {
     this._dataStore = dataStore;
+    this._civList = civList;
   }
   buildElement() {
     const element = document.createElement("div");
@@ -12,8 +14,7 @@ class TechOverlayControl {
     const controlsElement = this.buildTechSettingsPanel();
 
     // list of civs
-    const civIconListBuilder = new CivIconList();
-    const civListElement = civIconListBuilder.buildElement(true);
+    const civListElement = this._civList.buildElement(true);
     civListElement.classList.add("tech-civ-list");
 
     element.appendChild(controlsElement);
@@ -31,32 +32,34 @@ class TechOverlayControl {
     element.classList.add("tech-settings");
 
     //header
-    const headerElement = document.createElement("h3");
+    const headerElement = document.createElement("div");
     headerElement.classList.add("tech-header");
     headerElement.innerHTML = "Technology Overlay";
     element.appendChild(headerElement);
 
     const buttonsElement = document.createElement("div");
     buttonsElement.classList.add("action-buttons");
-    buttonsElement.appendChild(this.buildButton("Clear", "button-red", this.onClearClicked));
-    buttonsElement.appendChild(this.buildButton("Show", "button-blue", this.onShowClicked));
+    buttonsElement.appendChild(this.buildButton("Clear", "button-red", this.onClearClicked.bind(this)));
+    buttonsElement.appendChild(this.buildButton("Show", "button-blue", this.onShowClicked.bind(this)));
     element.appendChild(buttonsElement);
 
+    const settingsElement = document.createElement("div");
+    settingsElement.classList.add("action-settings");
     Object.keys(this._dataStore._techOverlayStore).forEach((key, index) => {
+      // console.log(`key ${key} :: ${this._dataStore._techOverlayStore[key]}`);
       if (key === "_label_userId") {
         return;
       }
-      // console.log(`key ${key} :: ${this._dataStore._techOverlayStore[key]}`);
       if (typeof this._dataStore._techOverlayStore[key] === "boolean") {
-        element.appendChild(this.buildCheckBox(key, this._dataStore._techOverlayStore[key]));
+        settingsElement.appendChild(this.buildCheckBox(key, this._dataStore._techOverlayStore[key]));
       } else if (typeof this._dataStore._techOverlayStore[key]) {
-        element.appendChild(this.buildInputBox(key, this._dataStore._techOverlayStore[key]));
+        settingsElement.appendChild(this.buildInputBox(key, this._dataStore._techOverlayStore[key]));
       }
     });
+    element.appendChild(settingsElement);
 
     return element;
   }
-
   buildCheckBox(label, value) {
     const container = document.createElement("div");
     container.classList.add("setting-container");
@@ -130,16 +133,19 @@ class TechOverlayControl {
   }
 
   onClearClicked(event) {
-    console.log("clear");
+    this._civList.resetState();
+    alert("clear");
   }
   onShowClicked(event) {
-    console.log("show");
+    alert("show");
   }
 
   saveData() {
     Object.keys(this._dataStore._techOverlayStore).forEach((key, index) => {
       let storedValue;
-      if (document.getElementById(key).value === "on") {
+      if (key === "_label_userId") {
+        storedValue = this._dataStore._techOverlayStore[key];
+      } else if (document.getElementById(key).value === "on") {
         storedValue = document.getElementById(key).checked;
       } else {
         storedValue = document.getElementById(key).value;

@@ -8,6 +8,7 @@ class AdminPage {
     this._civList = civList;
   }
   buildHtml() {
+    document.body.classList.add("admin-body");
     const bodyContent = document.getElementById("dynamic-content");
 
     const adminPage = document.createElement("div");

@@ -9,7 +9,7 @@ html {
   flex-direction: column;
 }
 
-body {
+.admin-body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -18,12 +18,17 @@ body {
   background-repeat: no-repeat;
   align-items: center;
 }
-
-.body-content {
-  flex: 1 0 auto;
-  width: 96%;
+.client-body {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  align-items: center;
+}
+
+.body-content {
+  width: 100%;
 }
 
 .my-header {
@@ -134,6 +139,58 @@ body {
   pointer-events: none;
 }
 
+.client-page {
+  width: 100%;
+  height: 100%;
+}
+
+.civ-tech-overlay-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-image: url("./components/civ-tech-overlay/images/paper.png");
+  background-repeat: round;
+  width: 30%;
+  height: 100%;
+  padding-top: 0.5rem;
+}
+.civ-tech-overlay-container .civ-name-container {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+.civ-tech-overlay-container .civ-name {
+  display: inline-flex;
+  align-items: center;
+  font-size: xx-large;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.civ-tech-overlay-container .civ-icon {
+  height: 5rem;
+  border-radius: 1rem;
+  filter: drop-shadow(0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.5));
+}
+.civ-tech-overlay-container .civ-unique-unit-icon {
+  height: 5rem;
+  border-radius: 1rem;
+  box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+.civ-tech-overlay-container .civ-description {
+  text-align: center;
+  padding-top: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: x-large;
+}
+
+.civ-tech-overlay-container .civ-emblem {
+  opacity: 0.7;
+  flex-grow: 1;
+}
+
 .button-blue {
   background-color: #008cba;
 }
@@ -147,11 +204,9 @@ body {
   height: 2.1rem;
   width: 4rem;
 }
-
 .switch input {
   display: none;
 }
-
 .slider {
   background-color: #ccc;
   bottom: 0;
@@ -162,7 +217,6 @@ body {
   top: 0;
   transition: 0.4s;
 }
-
 .slider:before {
   background-color: #fff;
   bottom: 4px;
@@ -173,19 +227,15 @@ body {
   transition: 0.4s;
   width: 26px;
 }
-
 input:checked + .slider {
   background-color: #66bb6a;
 }
-
 input:checked + .slider:before {
   transform: translateX(26px);
 }
-
 .slider.round {
   border-radius: 1rem;
 }
-
 .slider.round:before {
   border-radius: 50%;
 }

@@ -151,7 +151,7 @@ html {
   justify-content: space-between;
   background-image: url("./components/civ-tech-overlay/images/paper.png");
   background-repeat: round;
-  width: 30%;
+  width: 25%;
   height: 100%;
   padding-top: 0.5rem;
 }
@@ -166,6 +166,7 @@ html {
   font-size: xx-large;
   margin-left: 1rem;
   margin-right: 1rem;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 
 .civ-tech-overlay-container .civ-icon {
@@ -184,6 +185,7 @@ html {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   font-size: x-large;
+  text-shadow: -1px 0 khaki, 0 1px khaki, 1px 0 khaki, 0 -1px khaki;
 }
 
 .civ-tech-overlay-container .civ-emblem {

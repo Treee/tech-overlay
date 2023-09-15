@@ -13,7 +13,9 @@ class ClientPage {
 
     const techOverlayGenerator = new CivTechOverlay();
     clientPage.appendChild(techOverlayGenerator.buildElement("aztecs"));
-    clientPage.appendChild(techOverlayGenerator.buildElement("lithuanians"));
+    clientPage.appendChild(techOverlayGenerator.buildElement("bengalis"));
+    clientPage.appendChild(techOverlayGenerator.buildElement("berbers"));
+    clientPage.appendChild(techOverlayGenerator.buildElement("bohemians"));
 
     bodyContent.appendChild(clientPage);
   }

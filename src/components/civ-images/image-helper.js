@@ -20,5 +20,6 @@ function importAllIntoMap(r, relativeImagePath) {
 const civIconsMap = importAllIntoMap(require.context("./icons/", true, /\.(png)$/), "components/civ-images/icons/");
 const civUniqueUnitIconsMap = importAllIntoMap(require.context("./civ-unique-units/", true, /\.(png)$/), "components/civ-images/civ-unique-units/");
 const civEmblemImageMap = importAllIntoMap(require.context("./civ-emblems/", true, /\.(png)$/), "components/civ-images/civ-emblems/");
+const civUpgradeIconMap = importAllIntoMap(require.context("./upgrade-icons/", true, /\.(png)$/), "components/civ-images/upgrade-icons/");
 
-export { civIconsMap, civUniqueUnitIconsMap, civEmblemImageMap };
+export { civIconsMap, civUniqueUnitIconsMap, civEmblemImageMap, civUpgradeIconMap };

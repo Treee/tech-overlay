@@ -96,19 +96,16 @@ html {
   align-items: center;
   justify-content: center;
 }
-
 .action-buttons {
   display: inline-flex;
   width: 100%;
   justify-content: space-evenly;
 }
-
 .action-settings {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
 }
-
 .setting-button {
   border-radius: 1rem;
   color: white;
@@ -153,12 +150,13 @@ html {
   background-repeat: round;
   width: 25%;
   height: 100%;
-  padding-top: 0.5rem;
+  padding-top: 1.5rem;
 }
 .civ-tech-overlay-container .civ-name-container {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
+  z-index: 2;
 }
 .civ-tech-overlay-container .civ-name {
   display: inline-flex;
@@ -168,7 +166,6 @@ html {
   margin-right: 1rem;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
-
 .civ-tech-overlay-container .civ-icon {
   height: 5rem;
   border-radius: 1rem;
@@ -178,6 +175,7 @@ html {
   height: 5rem;
   border-radius: 1rem;
   box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.5);
+  border: silver solid 1px;
 }
 .civ-tech-overlay-container .civ-description {
   text-align: center;
@@ -188,10 +186,12 @@ html {
   text-shadow: -1px 0 khaki, 0 1px khaki, 1px 0 khaki, 0 -1px khaki;
   z-index: 2;
 }
-
 .civ-tech-overlay-container .civ-emblem {
   opacity: 0.7;
   flex-grow: 1;
+  position: absolute;
+  z-index: 0;
+  top: 45%;
 }
 
 .civ-upgrade-overlay-container {
@@ -201,7 +201,8 @@ html {
   justify-content: end;
   width: 100%;
   height: 100%;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2.5rem;
+  z-index: 2;
 }
 .civ-upgrade-overlay-container .civ-upgrade-container {
   display: inline-flex;
@@ -263,7 +264,6 @@ html {
   margin-bottom: 0.2rem;
   border: yellow solid 1px;
 }
-
 .civ-upgrade-overlay-container .upgrade-icon {
   border-radius: 1rem;
   box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.5);

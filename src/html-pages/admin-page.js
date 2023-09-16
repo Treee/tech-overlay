@@ -1,11 +1,10 @@
 import { TechOverlayControl } from "../components/tech-overlay-control/tech-overlay-control";
+import { CivIconList } from "../components/civ-icons/civ-icon-list";
 
 class AdminPage {
   _dataStore;
-  _civList;
-  constructor(dataStore, civList) {
+  constructor(dataStore) {
     this._dataStore = dataStore;
-    this._civList = civList;
   }
   buildHtml() {
     document.body.classList.add("admin-body");
@@ -14,7 +13,8 @@ class AdminPage {
     const adminPage = document.createElement("div");
     adminPage.classList.add("admin-page");
 
-    const techOverlayControl = new TechOverlayControl(this._dataStore, this._civList);
+    const civIconList = new CivIconList();
+    const techOverlayControl = new TechOverlayControl(this._dataStore, civIconList);
     adminPage.appendChild(techOverlayControl.buildElement());
 
     bodyContent.appendChild(adminPage);

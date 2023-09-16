@@ -5,8 +5,8 @@ import { CivUpgradeOverlay } from "../civ-upgrade-overlay/civ-upgrade-overlay";
 
 class CivTechOverlay {
   constructor() {}
-  buildElement(civName) {
-    const mainDiv = this.buildDivContainer();
+  buildElement(civName, autoHideDelay) {
+    const mainDiv = this.buildDivContainer(autoHideDelay);
 
     const nameContainerDiv = document.createElement("div");
     nameContainerDiv.classList.add("civ-name-container");
@@ -15,7 +15,6 @@ class CivTechOverlay {
     nameContainerDiv.appendChild(this.buildCivUniqueUnit(civName));
     mainDiv.appendChild(nameContainerDiv);
     mainDiv.appendChild(this.buildCivDescription(civName));
-    // mainDiv.appendChild(this.buildCivUniqueUnit(civName));
 
     const civUpgrades = new CivUpgradeOverlay();
     mainDiv.appendChild(civUpgrades.buildElement(civName));
@@ -24,7 +23,7 @@ class CivTechOverlay {
     return mainDiv;
   }
 
-  buildDivContainer() {
+  buildDivContainer(autoHideDelay) {
     const divContainer = document.createElement("div");
     divContainer.classList.add("civ-tech-overlay-container");
     divContainer.classList.add("mask-img-vertical");
@@ -34,7 +33,7 @@ class CivTechOverlay {
       setTimeout(() => {
         divContainer.classList.remove("civ-tech-animation-enter-active");
         divContainer.classList.add("civ-tech-animation-leave-active");
-      }, 10000);
+      }, autoHideDelay);
     }, 1000);
     return divContainer;
   }

@@ -7,13 +7,14 @@ html {
   height: 100%;
   display: inline-flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .admin-body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  background-image: url("./assets/images/backgrounds/ingame_diplomacy-menu_bg_full.png");
+  background-image: url("./assets/images/ingame_diplomacy-menu_bg_full.png");
   background-size: cover;
   background-repeat: no-repeat;
   align-items: center;

@@ -1,5 +1,3 @@
-import { CivIconList } from "../civ-icons/civ-icon-list";
-
 class TechOverlayControl {
   _dataStore;
   _civList;

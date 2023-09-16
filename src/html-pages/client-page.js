@@ -17,11 +17,10 @@ class ClientPage {
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[1].toLowerCase()));
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[2].toLowerCase()));
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[3].toLowerCase()));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv()));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv()));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv()));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv()));
-
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 5000));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 7000));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 9000));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 11000));
     bodyContent.appendChild(clientPage);
   }
 

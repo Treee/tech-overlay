@@ -46,9 +46,7 @@ class CivUpgradeOverlay {
     const allTechs = getCivTechnologyUpgrades(civName);
     const ecoTechs = filterEcoTechnologies(allTechs);
     const reducedEcoTechs = filterLowestUpgradesFromCategories(["lumber camp", "mill", "university", "stable"], ecoTechs);
-    console.log("eco techs", reducedEcoTechs);
     reducedEcoTechs.forEach((upgrade) => {
-      console.log(upgrade);
       const imagePath = `./${civUpgradeIconMap.get(upgrade.rawName.toLowerCase())}`;
       const iconElement = this.buildIcon(imagePath, upgrade.id === -1);
 

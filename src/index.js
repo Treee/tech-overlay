@@ -6,7 +6,6 @@ import { DefaultHTMLPageElements } from "./html-pages/default-elements";
 import { InvalidPage } from "./html-pages/invalid-page";
 import { AdminPage } from "./html-pages/admin-page";
 import { ClientPage } from "./html-pages/client-page";
-import { CivIconList } from "./components/civ-icons/civ-icon-list";
 
 const savedData = new LocalSavedData();
 savedData.loadData();
@@ -18,7 +17,6 @@ dynamicContentDiv.classList.add("body-content");
 
 document.body.appendChild(dynamicContentDiv);
 
-const civIconList = new CivIconList();
 const defaultElements = new DefaultHTMLPageElements(savedData);
 defaultElements.initDefaultElements();
 
@@ -27,7 +25,7 @@ const router = new MyRouter();
 //   new InvalidPage(savedData).buildHtml();
 // });
 router.addRoute("admin", "", () => {
-  new AdminPage(savedData, civIconList).buildHtml();
+  new AdminPage(savedData).buildHtml();
 });
 router.addRoute("matchset", "matchset", () => {
   new InvalidPage(savedData).buildHtml();

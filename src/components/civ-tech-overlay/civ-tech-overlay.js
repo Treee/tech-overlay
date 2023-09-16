@@ -1,6 +1,8 @@
 import { civIconsMap, civUniqueUnitIconsMap, civEmblemImageMap } from "../civ-images/image-helper";
 import { getCivTechnologyDescription } from "../civ-images/civ-data/data-helper";
 
+import { CivUpgradeOverlay } from "../civ-upgrade-overlay/civ-upgrade-overlay";
+
 class CivTechOverlay {
   constructor() {}
   buildElement(civName) {
@@ -14,8 +16,11 @@ class CivTechOverlay {
     mainDiv.appendChild(nameContainerDiv);
     mainDiv.appendChild(this.buildCivDescription(civName));
     // mainDiv.appendChild(this.buildCivUniqueUnit(civName));
-    mainDiv.appendChild(this.buildCivEmblem(civName));
 
+    const civUpgrades = new CivUpgradeOverlay();
+    mainDiv.appendChild(civUpgrades.buildElement(civName));
+
+    mainDiv.appendChild(this.buildCivEmblem(civName));
     return mainDiv;
   }
 

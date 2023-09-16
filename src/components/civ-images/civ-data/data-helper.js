@@ -46,6 +46,35 @@ function getCivTechnologyUpgrades(civName) {
   });
   return upgradeNames;
 }
+function getAgeTierLevel(upgradeName) {
+  let foundIndex = -1;
+  for (let key in techRelationshipMapping) {
+    // ignored keys
+    if (!techRelationshipMapping.hasOwnProperty(key)) {
+      continue;
+    }
+    if (key === "university" || key === "stable") {
+      continue;
+    }
+    const value = techRelationshipMapping[key];
+    // blacksmith double array checks
+    let searchIndex = -1;
+    if (value[0].constructor === Array) {
+      value.forEach((category) => {
+        searchIndex = category.indexOf(upgradeName);
+        if (searchIndex !== -1) {
+          foundIndex = searchIndex;
+        }
+      });
+    } else {
+      searchIndex = value.indexOf(upgradeName);
+      if (searchIndex !== -1) {
+        foundIndex = searchIndex;
+      }
+    }
+  }
+  return foundIndex;
+}
 function filterBlackSmithTechnologies(fullUpgradeList) {
   const blacksmithTechs = fullUpgradeList.filter((upgrade) => {
     return techRelationshipMapping.blacksmith.some((category) => {
@@ -112,7 +141,7 @@ function filterLowestUpgradesFromCategories(upgradeCategories, upgradeList) {
         foundHigherTier = true;
         modifiedUpgradeList.push(upgrade);
       } else {
-        console.log("remove: ", upgrade);
+        // console.log("remove: ", upgrade);
       }
       // this is for civs that dont have the upgrade
       if (i === 0 && !foundHigherTier && !ignoreTier) {
@@ -123,4 +152,4 @@ function filterLowestUpgradesFromCategories(upgradeCategories, upgradeList) {
   return modifiedUpgradeList;
 }
 
-export { getCivTechnologyDescription, getCivTechnologyUpgrades, filterLowestUpgrades, filterLowestUpgradesFromCategories, filterBlackSmithTechnologies, filterEcoTechnologies };
+export { getCivTechnologyDescription, getCivTechnologyUpgrades, getAgeTierLevel, filterLowestUpgrades, filterLowestUpgradesFromCategories, filterBlackSmithTechnologies, filterEcoTechnologies };

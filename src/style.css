@@ -186,6 +186,7 @@ html {
   margin-right: 0.5rem;
   font-size: x-large;
   text-shadow: -1px 0 khaki, 0 1px khaki, 1px 0 khaki, 0 -1px khaki;
+  z-index: 2;
 }
 
 .civ-tech-overlay-container .civ-emblem {
@@ -205,58 +206,68 @@ html {
 .civ-upgrade-overlay-container .civ-upgrade-container {
   display: inline-flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 80%;
   justify-content: space-evenly;
   padding: 0.75rem;
 }
 .civ-upgrade-overlay-container .civ-upgrade-container .upgrade-icon-container {
   display: inline-flex;
-  flex-wrap: wrap;
   position: relative;
+  flex-direction: column;
 }
 .civ-upgrade-overlay-container .upgrade-icon-container .upgrade-tier-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.civ-upgrade-overlay-container .upgrade-icon-container .upgrade-tier-container .tier-background {
-  background-color: black;
+  width: inherit;
   height: 25%;
+  display: inline-flex;
+  flex-direction: row;
+  background-color: black;
+  border-radius: 0.3rem;
+  justify-content: space-evenly;
+  margin-top: 0.1rem;
+  box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.5);
+  border: yellow solid 1px;
 }
-
-.civ-upgrade-overlay-container .upgrade-icon-container .upgrade-tier-container .tier-0 {
+.civ-upgrade-overlay-container .upgrade-icon-container .upgrade-tier-container .enabled-1 {
   background-color: green;
-  height: 15%;
-  width: 25%;
-  position: absolute;
-  margin-top: 0.3rem;
-  z-index: 0;
-  top: 0;
-  left: 3%;
+  height: 0.75rem;
+  width: 85%;
+  border-radius: 0.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  border: yellow solid 1px;
 }
-.civ-upgrade-overlay-container .upgrade-icon-container .upgrade-tier-container .tier-1 {
-  background-color: green;
-  height: 15%;
-  width: 25%;
-  position: absolute;
-  margin-top: 0.3rem;
-  z-index: 0;
-  top: 0;
-  left: 36%;
+.civ-upgrade-overlay-container .upgrade-icon-container .upgrade-tier-container .disabled-1 {
+  background-color: red;
+  height: 0.75rem;
+  width: 85%;
+  border-radius: 0.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  border: yellow solid 1px;
 }
-.civ-upgrade-overlay-container .upgrade-icon-container .upgrade-tier-container .tier-2 {
+.civ-upgrade-overlay-container .upgrade-icon-container .upgrade-tier-container .enabled-3 {
   background-color: green;
-  height: 15%;
-  width: 25%;
-  position: absolute;
-  margin-top: 0.3rem;
-  z-index: 0;
-  top: 0;
-  left: 69%;
+  height: 0.75rem;
+  width: 1.2rem;
+  border-radius: 0.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  border: yellow solid 1px;
+}
+.civ-upgrade-overlay-container .upgrade-icon-container .upgrade-tier-container .disabled-3 {
+  background-color: red;
+  height: 0.75rem;
+  width: 1.2rem;
+  border-radius: 0.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  border: yellow solid 1px;
 }
 
 .civ-upgrade-overlay-container .upgrade-icon {
+  border-radius: 1rem;
+  box-shadow: 0.75rem 0.75rem 0.5rem rgba(0, 0, 0, 0.5);
+  border: yellow solid 1px;
   height: 5rem;
 }
 .civ-upgrade-overlay-container .disable-icon-meso {
@@ -265,19 +276,19 @@ html {
   position: absolute;
   z-index: 1;
   width: 100%;
-  height: 100%;
+  height: 5rem;
 }
 .civ-upgrade-overlay-container .civ-eco-upgrade-container {
   display: inline-flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 80%;
   justify-content: space-evenly;
   padding: 0.75rem;
 }
 .civ-upgrade-overlay-container .civ-eco-upgrade-container .upgrade-icon-container {
   display: inline-flex;
-  flex-wrap: wrap;
   position: relative;
+  flex-direction: column;
 }
 
 .button-blue {

@@ -1,5 +1,5 @@
 import { civUpgradeIconMap } from "../civ-images/image-helper";
-import { getCivTechnologyUpgrades, filterLowestUpgrades, filterLowestUpgradesFromCategories, filterBlackSmithTechnologies, filterEcoTechnologies } from "../civ-images/civ-data/data-helper";
+import { getCivTechnologyUpgrades, getAgeTierLevel, filterLowestUpgrades, filterLowestUpgradesFromCategories, filterBlackSmithTechnologies, filterEcoTechnologies } from "../civ-images/civ-data/data-helper";
 class CivUpgradeOverlay {
   constructor() {}
   buildElement(civName) {
@@ -29,7 +29,8 @@ class CivUpgradeOverlay {
       const imagePath = `./${civUpgradeIconMap.get(upgrade.rawName.toLowerCase())}`;
       const iconElement = this.buildIcon(imagePath, upgrade.id === -1);
 
-      const tierContainer = this.buildTierIcon(3);
+      const numTiers = getAgeTierLevel(upgrade.rawName);
+      const tierContainer = this.buildTierContainer(numTiers, upgrade.id === -1);
       iconElement.appendChild(tierContainer);
 
       divContainer.appendChild(iconElement);
@@ -50,7 +51,8 @@ class CivUpgradeOverlay {
       const imagePath = `./${civUpgradeIconMap.get(upgrade.rawName.toLowerCase())}`;
       const iconElement = this.buildIcon(imagePath, upgrade.id === -1);
 
-      const tierContainer = this.buildTierIcon(3);
+      const numTiers = getAgeTierLevel(upgrade.rawName);
+      const tierContainer = this.buildTierContainer(numTiers, upgrade.id === -1);
       iconElement.appendChild(tierContainer);
 
       divContainer.appendChild(iconElement);
@@ -75,16 +77,30 @@ class CivUpgradeOverlay {
     }
     return upgradeIconContainer;
   }
-  buildTierIcon(tierLevels, x) {
+  buildTierContainer(tierLevels, fullDisabled) {
     const tierContainer = document.createElement("div");
     tierContainer.classList.add("upgrade-tier-container");
-    const tierBackground = document.createElement("div");
-    tierBackground.classList.add("tier-background");
-    tierContainer.appendChild(tierBackground);
-    for (let i = 0; i < tierLevels; i++) {
-      const tier = document.createElement("div");
-      tier.classList.add(`tier-${i}`);
+
+    const tier = document.createElement("div");
+    if (fullDisabled) {
+      tier.classList.add(`disabled-1`);
       tierContainer.appendChild(tier);
+    } else if (tierLevels === -1 && !fullDisabled) {
+      tier.classList.add(`enabled-1`);
+      tierContainer.appendChild(tier);
+    } else if (tierLevels > 0) {
+      //+1 for 0 offset
+      const offsetTiers = tierLevels + 1;
+      for (let i = 0; i < offsetTiers; i++) {
+        const multiTier = document.createElement("div");
+        multiTier.classList.add(`enabled-3`);
+        tierContainer.appendChild(multiTier);
+      }
+      if (tierLevels === 1) {
+        const disableTier = document.createElement("div");
+        disableTier.classList.add(`disabled-3`);
+        tierContainer.appendChild(disableTier);
+      }
     }
     return tierContainer;
   }

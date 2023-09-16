@@ -46,8 +46,9 @@ class CivUpgradeOverlay {
     const allTechs = getCivTechnologyUpgrades(civName);
     const ecoTechs = filterEcoTechnologies(allTechs);
     const reducedEcoTechs = filterLowestUpgradesFromCategories(["lumber camp", "mill", "university", "stable"], ecoTechs);
-
+    console.log("eco techs", reducedEcoTechs);
     reducedEcoTechs.forEach((upgrade) => {
+      console.log(upgrade);
       const imagePath = `./${civUpgradeIconMap.get(upgrade.rawName.toLowerCase())}`;
       const iconElement = this.buildIcon(imagePath, upgrade.id === -1);
 
@@ -88,13 +89,21 @@ class CivUpgradeOverlay {
     } else if (tierLevels === -1 && !fullDisabled) {
       tier.classList.add(`enabled-1`);
       tierContainer.appendChild(tier);
-    } else if (tierLevels > 0) {
+    } else if (tierLevels > -1) {
       //+1 for 0 offset
       const offsetTiers = tierLevels + 1;
       for (let i = 0; i < offsetTiers; i++) {
         const multiTier = document.createElement("div");
         multiTier.classList.add(`enabled-3`);
         tierContainer.appendChild(multiTier);
+      }
+      if (tierLevels === 0) {
+        const disableTier = document.createElement("div");
+        disableTier.classList.add(`disabled-3`);
+        const disableTier1 = document.createElement("div");
+        disableTier1.classList.add(`disabled-3`);
+        tierContainer.appendChild(disableTier);
+        tierContainer.appendChild(disableTier1);
       }
       if (tierLevels === 1) {
         const disableTier = document.createElement("div");

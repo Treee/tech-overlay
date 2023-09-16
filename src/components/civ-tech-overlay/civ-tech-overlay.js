@@ -27,6 +27,15 @@ class CivTechOverlay {
   buildDivContainer() {
     const divContainer = document.createElement("div");
     divContainer.classList.add("civ-tech-overlay-container");
+    divContainer.classList.add("mask-img-vertical");
+    setTimeout(() => {
+      divContainer.classList.remove("civ-tech-animation-leave-active");
+      divContainer.classList.add("civ-tech-animation-enter-active");
+      setTimeout(() => {
+        divContainer.classList.remove("civ-tech-animation-enter-active");
+        divContainer.classList.add("civ-tech-animation-leave-active");
+      }, 10000);
+    }, 1000);
     return divContainer;
   }
   buildNameElement(civName) {

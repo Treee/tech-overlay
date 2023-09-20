@@ -3,17 +3,33 @@ import civStringData from "./strings.json";
 
 const techRelationshipMapping = {
   blacksmith: [
-    ["Forging", "Iron Casting", "Blast Furnace"],
-    ["Scale Mail Armor", "Chain Mail Armor", "Plate Mail Armor"],
-    ["Scale Barding Armor", "Chain Barding Armor", "Plate Barding Armor"],
-    ["Fletching", "Bodkin Arrow", "Bracer"],
-    ["Padded Archer Armor", "Leather Archer Armor", "Ring Archer Armor"],
+    {
+      isChainUpgrade: true,
+      data: ["Forging", "Iron Casting", "Blast Furnace"],
+    },
+    {
+      isChainUpgrade: true,
+      data: ["Scale Mail Armor", "Chain Mail Armor", "Plate Mail Armor"],
+    },
+    {
+      isChainUpgrade: true,
+      data: ["Scale Barding Armor", "Chain Barding Armor", "Plate Barding Armor"],
+    },
+    {
+      isChainUpgrade: true,
+      data: ["Fletching", "Bodkin Arrow", "Bracer"],
+    },
+    {
+      isChainUpgrade: true,
+      data: ["Padded Archer Armor", "Leather Archer Armor", "Ring Archer Armor"],
+    },
   ],
-  "lumber camp": ["Double-Bit Axe", "Bow Saw", "Two-Man Saw"],
-  mill: ["Horse Collar", "Heavy Plow", "Crop Rotation"],
+  "lumber camp": [{ isChainUpgrade: true, data: ["Double-Bit Axe", "Bow Saw", "Two-Man Saw"] }],
+  mill: [{ isChainUpgrade: true, data: ["Horse Collar", "Heavy Plow", "Crop Rotation"] }],
   // towncenter: ["Wheelbarrow", "Hand Cart"],
-  university: ["Ballistics", "Siege Engineers"],
-  stable: ["Bloodlines"],
+  university: [{ isChainUpgrade: false, data: ["Ballistics", "Siege Engineers"] }],
+  stable: [{ isChainUpgrade: false, data: ["Bloodlines", "Husbandry"] }],
+  "archery range": [{ isChainUpgrade: false, data: ["Thumb Ring"] }],
 };
 
 function formatRawCivNameToKey(civName) {
@@ -21,7 +37,6 @@ function formatRawCivNameToKey(civName) {
   civName = `${civName.substring(0, 1).toUpperCase()}${civName.slice(1)}`;
   return civName;
 }
-
 function getCivNames() {
   return Object.keys(civDataRaw.civ_names);
 }
@@ -52,115 +67,59 @@ function getCivTechnologyUpgrades(civName) {
 function getAgeTierLevel(upgradeName) {
   let foundIndex = -1;
   for (let key in techRelationshipMapping) {
-    // ignored keys
+    if (foundIndex > -1) break; // short circuit found results
     if (!techRelationshipMapping.hasOwnProperty(key)) {
+      // ignored keys
       continue;
     }
-    if (key === "university" || key === "stable") {
-      continue;
-    }
-    const value = techRelationshipMapping[key];
-    // blacksmith double array checks
-    let searchIndex = -1;
-    if (value[0].constructor === Array) {
-      value.forEach((category) => {
-        searchIndex = category.indexOf(upgradeName);
-        if (searchIndex !== -1) {
-          foundIndex = searchIndex;
-        }
-      });
-    } else {
-      searchIndex = value.indexOf(upgradeName);
-      if (searchIndex !== -1) {
-        foundIndex = searchIndex;
+    // look at everything and return the index of array (loose representation of age level)
+    techRelationshipMapping[key].forEach((upgrade) => {
+      if (foundIndex > -1) return; // short circuit found results
+      if (upgrade.isChainUpgrade) {
+        foundIndex = upgrade.data.indexOf(upgradeName);
+      } else {
+        foundIndex = -1;
       }
-    }
+    });
   }
   return foundIndex;
-}
-function filterBlackSmithTechnologies(fullUpgradeList) {
-  const blacksmithTechs = fullUpgradeList.filter((upgrade) => {
-    return techRelationshipMapping.blacksmith.some((category) => {
-      return category.includes(upgrade.rawName);
-    });
-  });
-  return blacksmithTechs;
-}
-function filterEcoTechnologies(fullUpgradeList) {
-  const modifiedUpgradeList = [];
-
-  fullUpgradeList.forEach((upgrade) => {
-    Object.keys(techRelationshipMapping).forEach((category) => {
-      if (category === "blacksmith") {
-        return;
-      }
-      if (techRelationshipMapping[category].includes(upgrade.rawName)) {
-        modifiedUpgradeList.push(upgrade);
-      }
-    });
-  });
-  return modifiedUpgradeList;
-}
-
-function filterLowestUpgrades(upgradeCategory, upgradeList) {
-  const modifiedUpgradeList = [];
-  // for each blacksmith category
-  techRelationshipMapping[upgradeCategory].forEach((category) => {
-    // for upgrade in a category (start at the highest tier)
-    let foundHigherTier = false;
-    for (let i = category.length - 1; i > -1; i--) {
-      // find the highest indexed value in upgradeList
-      const upgrade = upgradeList.find((upgrade) => {
-        return upgrade.rawName === category[i];
-      });
-      if (upgrade !== undefined && !foundHigherTier) {
-        foundHigherTier = true;
-        modifiedUpgradeList.push(upgrade);
-      }
-      // this is for meso civs that dont have the upgrade for horses
-      if (i === 0 && !foundHigherTier) {
-        modifiedUpgradeList.push({ rawName: category[i], id: -1 });
-      }
-    }
-  });
-  return modifiedUpgradeList;
 }
 function filterLowestUpgradesFromCategories(upgradeCategories, upgradeList) {
   const modifiedUpgradeList = [];
   upgradeCategories.forEach((upgradeCategory) => {
     const upgradeArrayMap = techRelationshipMapping[upgradeCategory];
-    // non relational upgrades on/off toggle
-    if (upgradeCategory === "university") {
-      upgradeArrayMap.forEach((nonRelationalTech) => {
-        const foundTech = upgradeList.find((upgrade) => {
-          return upgrade.rawName === nonRelationalTech;
+    upgradeArrayMap.forEach((upgradeArray) => {
+      if (upgradeArray.isChainUpgrade) {
+        // this upgrade array is in the age chain, determine what is the highest tech available
+        let foundHigherTier = false;
+        for (let i = upgradeArray.data.length - 1; i > -1; i--) {
+          // find the highest indexed value in upgradeList
+          const upgrade = upgradeList.find((upgrade) => {
+            return upgrade.rawName === upgradeArray.data[i];
+          });
+          if (upgrade !== undefined && !foundHigherTier) {
+            foundHigherTier = true;
+            modifiedUpgradeList.push(upgrade);
+          }
+          // this is for civs that dont have the upgrade
+          if (i === 0 && !foundHigherTier) {
+            modifiedUpgradeList.push({ rawName: upgradeArray.data[i], id: -1 });
+          }
+        }
+      } else {
+        upgradeArray.data.forEach((upgradeArr) => {
+          const foundTech = upgradeList.find((upgrade) => {
+            return upgrade.rawName === upgradeArr;
+          });
+          if (foundTech) {
+            modifiedUpgradeList.push({ rawName: upgradeArr, id: 0 });
+          } else {
+            modifiedUpgradeList.push({ rawName: upgradeArr, id: -1 });
+          }
         });
-        if (foundTech) {
-          modifiedUpgradeList.push({ rawName: nonRelationalTech, id: 0 });
-        } else {
-          modifiedUpgradeList.push({ rawName: nonRelationalTech, id: -1 });
-        }
-      });
-    } else {
-      // for upgrade in a category (start at the highest tier)
-      let foundHigherTier = false;
-      for (let i = upgradeArrayMap.length - 1; i > -1; i--) {
-        // find the highest indexed value in upgradeList
-        const upgrade = upgradeList.find((upgrade) => {
-          return upgrade.rawName === upgradeArrayMap[i];
-        });
-        if (upgrade !== undefined && !foundHigherTier) {
-          foundHigherTier = true;
-          modifiedUpgradeList.push(upgrade);
-        }
-        // this is for civs that dont have the upgrade
-        if (i === 0 && !foundHigherTier) {
-          modifiedUpgradeList.push({ rawName: upgradeArrayMap[i], id: -1 });
-        }
       }
-    }
+    });
   });
   return modifiedUpgradeList;
 }
-
-export { getCivNames, getCivTechnologyDescription, getCivTechnologyUpgrades, getAgeTierLevel, filterLowestUpgrades, filterLowestUpgradesFromCategories, filterBlackSmithTechnologies, filterEcoTechnologies };
+export { getCivNames, getCivTechnologyDescription, getCivTechnologyUpgrades, getAgeTierLevel, filterLowestUpgradesFromCategories };

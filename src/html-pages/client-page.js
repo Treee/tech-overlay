@@ -21,6 +21,11 @@ class ClientPage {
     clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), -1));
     clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), -1));
     clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), -1));
+    const useSound = true;
+    if (useSound) {
+      const soundElement = techOverlayGenerator.buildSounds();
+      clientPage.appendChild(soundElement);
+    }
     bodyContent.appendChild(clientPage);
   }
 

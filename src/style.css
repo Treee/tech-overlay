@@ -153,10 +153,7 @@ html {
   background-repeat: round;
   height: 100%;
   padding-top: 1.5rem;
-  flex-basis: 0;
-  flex-grow: 1;
-  min-width: 25%;
-  max-width: 35%;
+  width: 25%;
 }
 .civ-tech-overlay-container .civ-name-container {
   display: inline-flex;
@@ -213,7 +210,7 @@ html {
 .civ-upgrade-overlay-container .civ-upgrade-container {
   display: inline-flex;
   flex-wrap: wrap;
-  width: 80%;
+  width: 95%;
   justify-content: space-evenly;
   padding: 0.75rem;
 }
@@ -287,7 +284,7 @@ html {
 .civ-upgrade-overlay-container .civ-eco-upgrade-container {
   display: inline-flex;
   flex-wrap: wrap;
-  width: 80%;
+  width: 95%;
   justify-content: space-evenly;
   padding: 0.75rem;
 }

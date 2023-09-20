@@ -15,6 +15,14 @@ function importAllIntoMap(r, relativeImagePath) {
   return myMap;
 }
 
-const civSoundMap = importAllIntoMap(require.context("./sounds/", true, /\.(png)$/), "components/civ-sounds/sounds/");
+const civSoundMap = importAllIntoMap(require.context("./sounds/", true, /\.(mp3)$/), "components/civ-sounds/sounds/");
 
-export {};
+function buildAudioElement(civName) {
+  const audioElement = new Audio(`./${civSoundMap.get(civName.toLowerCase())}`);
+  return audioElement;
+}
+function getAudioSource(civName) {
+  return civSoundMap.get(civName.toLowerCase());
+}
+
+export { buildAudioElement, getAudioSource };

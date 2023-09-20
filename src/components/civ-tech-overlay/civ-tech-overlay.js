@@ -1,12 +1,19 @@
 import { civIconsMap, civUniqueUnitIconsMap, civEmblemImageMap } from "../civ-images/image-helper";
 import { getCivTechnologyDescription } from "../civ-images/civ-data/data-helper";
+import { buildAudioElement, getAudioSource } from "../civ-sounds/sound-helper";
 
 import { CivUpgradeOverlay } from "../civ-upgrade-overlay/civ-upgrade-overlay";
 
 class CivTechOverlay {
-  constructor() {}
+  _soundsToPlay;
+  _soundIndex;
+  constructor() {
+    this._soundIndex = 0;
+    this._soundsToPlay = [];
+  }
   buildElement(civName, autoHideDelay) {
-    const mainDiv = this.buildDivContainer(autoHideDelay);
+    this._soundsToPlay.push(civName.toLowerCase());
+    const mainDiv = this.buildDivContainer(civName, autoHideDelay);
 
     const nameContainerDiv = document.createElement("div");
     nameContainerDiv.classList.add("civ-name-container");
@@ -23,8 +30,35 @@ class CivTechOverlay {
     return mainDiv;
   }
 
+  buildSounds() {
+    const localSoundCopy = this._soundsToPlay;
+    const soundElement = buildAudioElement(this._soundsToPlay[this._soundIndex].toLowerCase());
+    soundElement.onended = () => {
+      this._soundIndex++;
+      if (typeof this._soundsToPlay[this._soundIndex] !== "undefined") {
+        // play next sound
+        soundElement.src = getAudioSource(this._soundsToPlay[this._soundIndex]);
+      }
+    };
+    // this intercepts the normal play through function disabling autoplay
+    soundElement.addEventListener("canplaythrough", () => {
+      soundElement.play().catch((e) => {
+        const clickEvent = new Event("click", { bubbles: false });
+        soundElement.dispatchEvent(clickEvent);
+        // window.addEventListener(
+        //   "click",
+        //   () => {
+        //     soundElement.play();
+        //   },
+        //   { once: true }
+        // );
+      });
+    });
+    return soundElement;
+  }
   buildDivContainer(autoHideDelay) {
     const divContainer = document.createElement("div");
+
     divContainer.classList.add("civ-tech-overlay-container");
     divContainer.classList.add("mask-img-vertical");
     setTimeout(() => {

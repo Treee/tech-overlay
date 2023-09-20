@@ -140,6 +140,8 @@ html {
 .client-page {
   width: 100%;
   height: 100%;
+  display: inline-flex;
+  justify-content: space-between;
 }
 
 .civ-tech-overlay-container {
@@ -149,9 +151,12 @@ html {
   justify-content: space-between;
   background-image: url("./components/civ-tech-overlay/images/paper.png");
   background-repeat: round;
-  width: 25%;
   height: 100%;
   padding-top: 1.5rem;
+  flex-basis: 0;
+  flex-grow: 1;
+  min-width: 25%;
+  max-width: 35%;
 }
 .civ-tech-overlay-container .civ-name-container {
   display: inline-flex;

@@ -30,10 +30,13 @@ class CivTechOverlay {
     setTimeout(() => {
       divContainer.classList.remove("civ-tech-animation-leave-active");
       divContainer.classList.add("civ-tech-animation-enter-active");
-      setTimeout(() => {
-        divContainer.classList.remove("civ-tech-animation-enter-active");
-        divContainer.classList.add("civ-tech-animation-leave-active");
-      }, autoHideDelay);
+      if (autoHideDelay > -1) {
+        setTimeout(() => {
+          divContainer.classList.remove("civ-tech-animation-enter-active");
+          divContainer.classList.add("civ-tech-animation-leave-active");
+          divContainer.remove();
+        }, autoHideDelay);
+      }
     }, 1000);
     return divContainer;
   }

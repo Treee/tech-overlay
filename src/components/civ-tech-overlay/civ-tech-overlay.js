@@ -31,7 +31,6 @@ class CivTechOverlay {
   }
 
   buildSounds() {
-    const localSoundCopy = this._soundsToPlay;
     const soundElement = buildAudioElement(this._soundsToPlay[this._soundIndex].toLowerCase());
     soundElement.onended = () => {
       this._soundIndex++;
@@ -40,20 +39,6 @@ class CivTechOverlay {
         soundElement.src = getAudioSource(this._soundsToPlay[this._soundIndex]);
       }
     };
-    // this intercepts the normal play through function disabling autoplay
-    soundElement.addEventListener("canplaythrough", () => {
-      soundElement.play().catch((e) => {
-        const clickEvent = new Event("click", { bubbles: false });
-        soundElement.dispatchEvent(clickEvent);
-        // window.addEventListener(
-        //   "click",
-        //   () => {
-        //     soundElement.play();
-        //   },
-        //   { once: true }
-        // );
-      });
-    });
     return soundElement;
   }
   buildDivContainer(autoHideDelay) {

@@ -25,6 +25,7 @@ class ClientPage {
     if (useSound) {
       const soundElement = techOverlayGenerator.buildSounds();
       clientPage.appendChild(soundElement);
+      soundElement.play();
     }
     bodyContent.appendChild(clientPage);
   }

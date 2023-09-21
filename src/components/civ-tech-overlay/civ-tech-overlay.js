@@ -13,7 +13,7 @@ class CivTechOverlay {
   }
   buildElement(civName, autoHideDelay) {
     this._soundsToPlay.push(civName.toLowerCase());
-    const mainDiv = this.buildDivContainer(civName, autoHideDelay);
+    const mainDiv = this.buildMainDivContainer(autoHideDelay);
 
     const nameContainerDiv = document.createElement("div");
     nameContainerDiv.classList.add("civ-name-container");
@@ -42,7 +42,10 @@ class CivTechOverlay {
     };
     return soundElement;
   }
-  buildDivContainer(autoHideDelay) {
+  buildMainDivContainer(autoHideDelay) {
+    Array.from(document.getElementsByClassName("civ-tech-overlay-container")).forEach((element) => {
+      element.remove();
+    });
     const divContainer = document.createElement("div");
 
     divContainer.classList.add("civ-tech-overlay-container");
@@ -54,7 +57,6 @@ class CivTechOverlay {
         setTimeout(() => {
           divContainer.classList.remove("civ-tech-animation-enter-active");
           divContainer.classList.add("civ-tech-animation-leave-active");
-          divContainer.remove();
         }, autoHideDelay);
       }
     }, 1000);

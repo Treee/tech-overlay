@@ -17,10 +17,12 @@ class ClientPage {
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[1].toLowerCase()));
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[2].toLowerCase()));
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[3].toLowerCase()));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 1000));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 3000));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 5000));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 7000));
+
+    let timer = 12000;
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), timer));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), (timer += 3000)));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), (timer += 3000)));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), (timer += 3000)));
     const useSound = true;
     if (useSound) {
       const soundElement = techOverlayGenerator.buildSounds();

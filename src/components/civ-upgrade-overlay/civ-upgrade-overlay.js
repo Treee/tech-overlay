@@ -14,20 +14,19 @@ class CivUpgradeOverlay {
 
     const reducedBsTechs = filterLowestUpgradesFromCategories(["blacksmith", "archery range"], allTechs);
     const reducedEcoTechs = filterLowestUpgradesFromCategories(["lumber camp", "mill", "university", "stable"], allTechs);
+    const reducedMonkTechs = filterLowestUpgradesFromCategories(["monastery"], allTechs);
 
-    const divContainer = document.createElement("div");
-    divContainer.classList.add("civ-upgrade-container");
-    this.buildIconContainer(divContainer, reducedBsTechs);
+    mainDiv.appendChild(this.buildIconContainer(reducedBsTechs));
+    mainDiv.appendChild(this.buildIconContainer(reducedEcoTechs));
+    mainDiv.appendChild(this.buildIconContainer(reducedMonkTechs.slice(0, 5)));
+    mainDiv.appendChild(this.buildIconContainer(reducedMonkTechs.slice(5, reducedMonkTechs.length)));
 
-    const divContainer1 = document.createElement("div");
-    divContainer1.classList.add("civ-upgrade-container");
-    this.buildIconContainer(divContainer1, reducedEcoTechs);
-
-    mainDiv.appendChild(divContainer1);
-    mainDiv.appendChild(divContainer);
     return mainDiv;
   }
-  buildIconContainer(divToAppend, arrayOfUpgrades) {
+  buildIconContainer(arrayOfUpgrades) {
+    const divContainer = document.createElement("div");
+    divContainer.classList.add("civ-upgrade-container");
+
     arrayOfUpgrades.forEach((upgrade) => {
       const imagePath = `./${civUpgradeIconMap.get(upgrade.rawName.toLowerCase())}`;
       const iconElement = this.buildIcon(imagePath, upgrade.id === -1);
@@ -36,8 +35,9 @@ class CivUpgradeOverlay {
       const tierContainer = this.buildTierContainer(numTiers, upgrade.id === -1);
       iconElement.appendChild(tierContainer);
 
-      divToAppend.appendChild(iconElement);
+      divContainer.appendChild(iconElement);
     });
+    return divContainer;
   }
   buildIcon(imagePath, disableIcon) {
     const upgradeIconContainer = document.createElement("div");

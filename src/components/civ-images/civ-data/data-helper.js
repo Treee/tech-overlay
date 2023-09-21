@@ -30,6 +30,7 @@ const techRelationshipMapping = {
   university: [{ isChainUpgrade: false, data: ["Ballistics", "Siege Engineers"] }],
   stable: [{ isChainUpgrade: false, data: ["Bloodlines", "Husbandry"] }],
   "archery range": [{ isChainUpgrade: false, data: ["Thumb Ring"] }],
+  monastery: [{ isChainUpgrade: false, data: ["Redemption", "Atonement", "Herbal Medicine", "Heresy", "Sanctity", "Fervor", "Faith", "Illumination", "Block Printing", "Theocracy"] }],
 };
 
 function formatRawCivNameToKey(civName) {

@@ -37,6 +37,7 @@ class CivTechOverlay {
       if (typeof this._soundsToPlay[this._soundIndex] !== "undefined") {
         // play next sound
         soundElement.src = getAudioSource(this._soundsToPlay[this._soundIndex]);
+        soundElement.play();
       }
     };
     return soundElement;

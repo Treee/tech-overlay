@@ -212,7 +212,7 @@ html {
   flex-wrap: wrap;
   width: 95%;
   justify-content: space-evenly;
-  padding: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 .civ-upgrade-overlay-container .civ-upgrade-container .upgrade-icon-container {
   display: inline-flex;

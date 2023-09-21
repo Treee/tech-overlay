@@ -17,15 +17,17 @@ class ClientPage {
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[1].toLowerCase()));
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[2].toLowerCase()));
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[3].toLowerCase()));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), -1));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), -1));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), -1));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), -1));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 1000));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 3000));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 5000));
+    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), 7000));
     const useSound = true;
     if (useSound) {
       const soundElement = techOverlayGenerator.buildSounds();
       clientPage.appendChild(soundElement);
-      soundElement.play();
+      setTimeout(() => {
+        soundElement.play();
+      }, 1000);
     }
     bodyContent.appendChild(clientPage);
   }

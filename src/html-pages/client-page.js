@@ -18,7 +18,7 @@ class ClientPage {
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[2].toLowerCase()));
     // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[3].toLowerCase()));
 
-    let timer = 12000;
+    let timer = 15000;
     clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), timer));
     clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), (timer += 3000)));
     clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), (timer += 3000)));

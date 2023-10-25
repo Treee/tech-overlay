@@ -1,4 +1,4 @@
-import { SocketEnums } from "../../../../websocket-server/src/common/common-data";
+import { SocketEnums } from "../common-data";
 import { getCivNames } from "../components/civ-images/civ-data/data-helper";
 import { CivTechOverlay } from "../components/civ-tech-overlay/civ-tech-overlay";
 class ClientPage {

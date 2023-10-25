@@ -1,4 +1,4 @@
-import { SocketEnums } from "../../../../../websocket-server/src/common/common-data";
+import { SocketEnums } from "../../common-data";
 class TechOverlayControl {
   _dataStore;
   _civList;

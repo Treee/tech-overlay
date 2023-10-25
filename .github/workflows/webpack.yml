@@ -28,4 +28,4 @@ jobs:
           name: tech-overlay-dist
           path: dist/
           if-no-files-found: error
-          retention-days: 15
+          retention-days: 1

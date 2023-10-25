@@ -55,7 +55,7 @@ class DefaultHTMLPageElements {
     adminPageRoute.addEventListener("click", (event) => {
       navigator.clipboard.writeText(this._dataStore._techOverlayStore._label_userId);
       // alert(`Copied id to clipboard: ${this._dataStore._techOverlayStore._label_userId}`);
-      window.location.href = "/";
+      window.location.href = `#admin/${this._dataStore._techOverlayStore._label_userId}`;
     });
 
     const roundManager = document.createElement("div");

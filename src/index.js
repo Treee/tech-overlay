@@ -25,7 +25,7 @@ const router = new MyRouter();
 // router.addRoute("404", "", () => {
 //   new InvalidPage(savedData).buildHtml();
 // });
-router.addRoute("admin", "", () => {
+router.addRoute("admin", `admin/${savedData._techOverlayStore._label_userId}`, () => {
   new AdminPage(savedData, clientWebsocket).buildHtml();
 });
 router.addRoute("matchset", "matchset", () => {

@@ -40,6 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
   router.init();
 });
 
-const isLocal = true;
+const isLocal = false;
 const clientWebsocket = new MyWebSocketClient();
 clientWebsocket.startClient(savedData._techOverlayStore._label_userId, isLocal);

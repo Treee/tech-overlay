@@ -11,7 +11,7 @@ class CivTechOverlay {
     this._soundIndex = 0;
     this._soundsToPlay = [];
   }
-  buildElement(civName, autoHideDelay) {
+  buildElement(civName, techOptions, autoHideDelay) {
     this._soundsToPlay.push(civName.toLowerCase());
     const mainDiv = this.buildMainDivContainer(autoHideDelay);
 
@@ -24,12 +24,11 @@ class CivTechOverlay {
     mainDiv.appendChild(this.buildCivDescription(civName));
 
     const civUpgrades = new CivUpgradeOverlay();
-    mainDiv.appendChild(civUpgrades.buildElement(civName));
+    mainDiv.appendChild(civUpgrades.buildElement(civName, techOptions));
 
     mainDiv.appendChild(this.buildCivEmblem(civName));
     return mainDiv;
   }
-
   buildSounds() {
     const soundElement = buildAudioElement(this._soundsToPlay[this._soundIndex].toLowerCase());
     soundElement.onended = () => {
@@ -43,9 +42,6 @@ class CivTechOverlay {
     return soundElement;
   }
   buildMainDivContainer(autoHideDelay) {
-    Array.from(document.getElementsByClassName("civ-tech-overlay-container")).forEach((element) => {
-      element.remove();
-    });
     const divContainer = document.createElement("div");
 
     divContainer.classList.add("civ-tech-overlay-container");
@@ -93,6 +89,11 @@ class CivTechOverlay {
     civIcon.classList.add("civ-emblem");
     civIcon.src = `./${civEmblemImageMap.get(civName)}`;
     return civIcon;
+  }
+  clearCivDivs() {
+    Array.from(document.getElementsByClassName("civ-tech-overlay-container")).forEach((element) => {
+      element.remove();
+    });
   }
 }
 

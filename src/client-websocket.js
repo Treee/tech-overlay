@@ -1,4 +1,4 @@
-import { SocketEnums } from "../../../websocket-server/common/common-data";
+import { SocketEnums } from "../../../websocket-server/src/common/common-data";
 
 class MyWebSocketClient {
   _clientId;
@@ -13,15 +13,14 @@ class MyWebSocketClient {
   sendMessage(dataType, rawData) {
     this._clientSocket.send(this.formatDataForWebsocket(dataType, rawData));
   }
-  startClient(clientId, callbackFn, isLocal) {
+  startClient(clientId, isLocal) {
     this._clientId = clientId;
     const url = isLocal ? "ws://localhost:8443" : "wss://itsatreee.com/aoe-websocket-server/";
-    this.socket = new WebSocket(url);
+    this._clientSocket = new WebSocket(url);
     this._clientSocket.onopen = this.onOpen.bind(this);
-    // this._clientSocket.onmessage = this.onMessage.bind(this);
-    this._clientSocket.onmessage = callbackFn;
-    this._clientSocket.onclose = this.onClose;
-    this._clientSocket.onerror = this.onError;
+    this._clientSocket.onmessage = this.onMessage.bind(this);
+    this._clientSocket.onclose = this.onClose.bind(this);
+    this._clientSocket.onerror = this.onError.bind(this);
   }
   onOpen() {
     console.log("[open] Connection established");
@@ -31,7 +30,9 @@ class MyWebSocketClient {
     }, 45 * 1000); // ping the server on startup every 45 seconds to keep the connection alive
   }
   onMessage(event) {
-    console.log(`DataType: ${event.type} / RawData: ${JSON.stringify(event.data)}`);
+    // console.log(`DataType: ${event.type} / RawData: ${JSON.stringify(event.data)}`);
+    var newEvent = new CustomEvent("aoe-websocket-event", { detail: event });
+    document.dispatchEvent(newEvent);
   }
   onClose(event) {
     if (event.wasClean) {
@@ -41,6 +42,7 @@ class MyWebSocketClient {
       // event.code is usually 1006 in this case
       console.log("[close] Connection died");
     }
+    this.sendMessage(SocketEnums.ClientUnRegister, this._clientId);
     clearInterval(this._pingInterval);
   }
   onError(event) {

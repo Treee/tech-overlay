@@ -1,9 +1,12 @@
+import { SocketEnums } from "../../../../../websocket-server/src/common/common-data";
 class TechOverlayControl {
   _dataStore;
   _civList;
-  constructor(dataStore, civList) {
+  _clientWebsocket;
+  constructor(dataStore, civList, clientWebsocket) {
     this._dataStore = dataStore;
     this._civList = civList;
+    this._clientWebsocket = clientWebsocket;
   }
   buildElement() {
     const element = document.createElement("div");
@@ -131,11 +134,16 @@ class TechOverlayControl {
   }
 
   onClearClicked(event) {
+    this._clientWebsocket.sendMessage(SocketEnums.AGEOVERLAYPUSH, this.buildPayload(false));
     this._civList.resetState();
-    alert("clear");
   }
   onShowClicked(event) {
-    alert("show");
+    this._clientWebsocket.sendMessage(SocketEnums.AGEOVERLAYPUSH, this.buildPayload(true));
+  }
+
+  buildPayload(show) {
+    const payload = Object.assign({}, this._dataStore._techOverlayStore, { showOverlay: show, pickedCivs: this._civList.getListOfCivsClicked() });
+    return payload;
   }
 
   saveData() {

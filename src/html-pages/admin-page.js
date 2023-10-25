@@ -3,8 +3,10 @@ import { CivIconList } from "../components/civ-icons/civ-icon-list";
 
 class AdminPage {
   _dataStore;
-  constructor(dataStore) {
+  _clientWebsocket;
+  constructor(dataStore, clientWebsocket) {
     this._dataStore = dataStore;
+    this._clientWebsocket = clientWebsocket;
   }
   buildHtml() {
     document.body.classList.add("admin-body");
@@ -14,7 +16,7 @@ class AdminPage {
     adminPage.classList.add("admin-page");
 
     const civIconList = new CivIconList();
-    const techOverlayControl = new TechOverlayControl(this._dataStore, civIconList);
+    const techOverlayControl = new TechOverlayControl(this._dataStore, civIconList, this._clientWebsocket);
     adminPage.appendChild(techOverlayControl.buildElement());
 
     bodyContent.appendChild(adminPage);

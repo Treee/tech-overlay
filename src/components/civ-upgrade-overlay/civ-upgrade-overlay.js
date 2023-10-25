@@ -2,7 +2,9 @@ import { civUpgradeIconMap } from "../civ-images/image-helper";
 import { getCivTechnologyUpgrades, getAgeTierLevel, filterLowestUpgradesFromCategories } from "../civ-images/civ-data/data-helper";
 class CivUpgradeOverlay {
   constructor() {}
-  buildElement(civName) {
+  _techOptions;
+  buildElement(civName, techOptions) {
+    this._techOptions = techOptions;
     const mainDiv = this.buildUpgradeContainer(civName);
     return mainDiv;
   }
@@ -11,16 +13,20 @@ class CivUpgradeOverlay {
     mainDiv.classList.add("civ-upgrade-overlay-container");
 
     const allTechs = getCivTechnologyUpgrades(civName);
-
-    const reducedBsTechs = filterLowestUpgradesFromCategories(["blacksmith", "archery range"], allTechs);
-    const reducedEcoTechs = filterLowestUpgradesFromCategories(["lumber camp", "mill", "university", "stable"], allTechs);
-    const reducedMonkTechs = filterLowestUpgradesFromCategories(["monastery"], allTechs);
-
-    mainDiv.appendChild(this.buildIconContainer(reducedBsTechs));
-    mainDiv.appendChild(this.buildIconContainer(reducedEcoTechs));
-    mainDiv.appendChild(this.buildIconContainer(reducedMonkTechs.slice(0, 5)));
-    mainDiv.appendChild(this.buildIconContainer(reducedMonkTechs.slice(5, reducedMonkTechs.length)));
-
+    // console.log("tech options: ", this._techOptions);
+    if (this._techOptions._showBlacksmithTech) {
+      const reducedBsTechs = filterLowestUpgradesFromCategories(["blacksmith", "archery range"], allTechs);
+      mainDiv.appendChild(this.buildIconContainer(reducedBsTechs));
+    }
+    if (this._techOptions._showMonastaryTech) {
+      const reducedEcoTechs = filterLowestUpgradesFromCategories(["lumber camp", "mill", "university", "stable"], allTechs);
+      mainDiv.appendChild(this.buildIconContainer(reducedEcoTechs));
+    }
+    if (this._techOptions._showUniversityTech) {
+      const reducedMonkTechs = filterLowestUpgradesFromCategories(["monastery"], allTechs);
+      mainDiv.appendChild(this.buildIconContainer(reducedMonkTechs.slice(0, 5)));
+      mainDiv.appendChild(this.buildIconContainer(reducedMonkTechs.slice(5, reducedMonkTechs.length)));
+    }
     return mainDiv;
   }
   buildIconContainer(arrayOfUpgrades) {

@@ -6,6 +6,7 @@ import { DefaultHTMLPageElements } from "./html-pages/default-elements";
 import { InvalidPage } from "./html-pages/invalid-page";
 import { AdminPage } from "./html-pages/admin-page";
 import { ClientPage } from "./html-pages/client-page";
+import { MyWebSocketClient } from "./client-websocket.js";
 
 const savedData = new LocalSavedData();
 savedData.loadData();
@@ -25,16 +26,20 @@ const router = new MyRouter();
 //   new InvalidPage(savedData).buildHtml();
 // });
 router.addRoute("admin", "", () => {
-  new AdminPage(savedData).buildHtml();
+  new AdminPage(savedData, clientWebsocket).buildHtml();
 });
 router.addRoute("matchset", "matchset", () => {
   new InvalidPage(savedData).buildHtml();
 });
 router.addRoute("client", `client/${savedData._techOverlayStore._label_userId}`, () => {
-  new ClientPage(savedData).buildHtml();
+  new ClientPage(savedData, clientWebsocket).buildHtml();
 });
 
 //Start router when content is loaded
 document.addEventListener("DOMContentLoaded", function () {
   router.init();
 });
+
+const isLocal = true;
+const clientWebsocket = new MyWebSocketClient();
+clientWebsocket.startClient(savedData._techOverlayStore._label_userId, isLocal);

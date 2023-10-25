@@ -126,6 +126,20 @@ class CivIconList {
       e.style.backgroundImage = "";
     });
   }
+  getListOfCivsClicked() {
+    let numPlayers = 2;
+    if (document.getElementById("_numPlayersInMatch")) {
+      numPlayers = document.getElementById("_numPlayersInMatch").value;
+    }
+    const clickedCivs = [];
+    for (let i = 0; i < numPlayers; i++) {
+      const playerElement = document.getElementsByClassName(`player-${i}`);
+      if (playerElement.length > 0) {
+        clickedCivs.push(playerElement[0].getElementsByTagName("span")[0].innerText);
+      }
+    }
+    return clickedCivs;
+  }
   sanitizeDisplayValue(value) {
     // console.log(value);
     value = `${value[0].toUpperCase()}${value.substring(1, value.length)}`;

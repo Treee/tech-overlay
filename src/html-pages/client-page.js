@@ -1,37 +1,54 @@
+import { SocketEnums } from "../../../../websocket-server/src/common/common-data";
 import { getCivNames } from "../components/civ-images/civ-data/data-helper";
 import { CivTechOverlay } from "../components/civ-tech-overlay/civ-tech-overlay";
 class ClientPage {
   _dataStore;
-  constructor(dataStore) {
+  _clientWebsocket;
+  _techOverlay;
+  constructor(dataStore, clientWebsocket) {
     this._dataStore = dataStore;
+    this._clientWebsocket = clientWebsocket;
+    this._techOverlay = new CivTechOverlay();
+    document.addEventListener("aoe-websocket-event", this.digestWebsocketMessage.bind(this));
   }
   buildHtml() {
     this.initClientDefaults();
     const bodyContent = document.getElementById("dynamic-content");
 
-    const clientPage = document.createElement("div");
-    clientPage.classList.add("client-page");
+    const clientPageDOM = document.createElement("div");
+    clientPageDOM.classList.add("client-page");
+    clientPageDOM.id = "client-page";
+    bodyContent.appendChild(clientPageDOM);
+  }
 
-    const techOverlayGenerator = new CivTechOverlay();
-    // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[0].toLowerCase()));
-    // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[1].toLowerCase()));
-    // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[2].toLowerCase()));
-    // clientPage.appendChild(techOverlayGenerator.buildElement(getCivNames()[3].toLowerCase()));
+  digestWebsocketMessage(event) {
+    if (event) {
+      const rawData = JSON.parse(event.detail.data);
+      if (rawData.type === SocketEnums.AGEOVERLAYPUSH) {
+        const clientPage = document.getElementById("client-page");
+        this._techOverlay.clearCivDivs();
+        if (rawData.data.showOverlay) {
+          const additionalOptions = (({ _showBlacksmithTech, _showUniversityTech, _showMonastaryTech }) => ({ _showBlacksmithTech, _showUniversityTech, _showMonastaryTech }))(rawData.data);
+          rawData.data.pickedCivs.forEach((pickedCiv) => {
+            if (rawData.data._autoHide) {
+              clientPage.appendChild(this._techOverlay.buildElement(pickedCiv.toLowerCase(), additionalOptions, parseInt(rawData.data._autoHideDelay) * 1000));
+            } else {
+              clientPage.appendChild(this._techOverlay.buildElement(pickedCiv.toLowerCase(), additionalOptions, -1));
+            }
+          });
 
-    let timer = 15000;
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), timer));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), (timer += 3000)));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), (timer += 3000)));
-    clientPage.appendChild(techOverlayGenerator.buildElement(this.getRandomCiv(), (timer += 3000)));
-    const useSound = true;
-    if (useSound) {
-      const soundElement = techOverlayGenerator.buildSounds();
-      clientPage.appendChild(soundElement);
-      setTimeout(() => {
-        soundElement.play();
-      }, 1000);
+          if (rawData.data.pickedCivs.length > 0) {
+            if (rawData.data._useSound) {
+              const soundElement = this._techOverlay.buildSounds();
+              clientPage.appendChild(soundElement);
+              setTimeout(() => {
+                soundElement.play();
+              }, 1000);
+            }
+          }
+        }
+      }
     }
-    bodyContent.appendChild(clientPage);
   }
 
   initClientDefaults() {

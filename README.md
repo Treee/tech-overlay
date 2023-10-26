@@ -1,3 +1,13 @@
-This project is aimed at replacing the existing tech widget overlay found here https://github.com/Treee/tech-widget-overlay with a solution not bound by framework since maintaining this overlay is sporadic and the framework updates more than I care to support.
+# Age Of Empires 2 Technology Overlay
 
-- for sound to work without interacting with the screen you must whitelist the client url in your chrome browser `google chrome autoplay settings`
+## How To Use
+
+- [Landing Page](https://treee.github.io/tech-overlay/)
+
+- Click the **Admin** navigation tab. This opens your admin console to control the overlay.
+
+- Click the **Client** naviation tab. This is your overlay. Place this inside an **OBS Browser Source** and control it by using the Admin console.
+
+## Known Issues
+
+- For sound to work without interacting with the screen you must whitelist the client url in your chrome browser `google chrome autoplay settings` if you are unsure what to paste into the text box use this `https://treee.github.io/tech-overlay/`

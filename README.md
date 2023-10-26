@@ -2,9 +2,7 @@
 
 ## How To Use
 
-- <a href="https://treee.github.io/tech-overlay/" target="_blank">Landing Page</a>
-
-- [Landing Page](https://treee.github.io/tech-overlay/)
+- [Landing Page](https://treee.github.io/tech-overlay/) Right click to open in new window.
 
 - Click the **Admin** navigation tab. This opens your admin console to control the overlay.
 

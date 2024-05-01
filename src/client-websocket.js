@@ -16,7 +16,6 @@ class MyWebSocketClient {
   startClient(clientId, isLocal) {
     this._clientId = clientId;
 
-    // const url = isLocal ? "ws://192.168.87.107/websocket-server/" : "wss://itsatreee.com/websocket-server/";
     const url = "wss://itsatreee.com:8443/echo";
     this._clientSocket = new WebSocket(url);
     this._clientSocket.onopen = this.onOpen.bind(this);

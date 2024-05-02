@@ -31,9 +31,9 @@ router.addRoute("admin", `admin/${savedData._techOverlayStore._label_userId}`, (
 router.addRoute("matchset", "matchset", () => {
   new InvalidPage(savedData).buildHtml();
 });
-router.addRoute("client", `client/${savedData._techOverlayStore._label_userId}`, () => {
-  new ClientPage(savedData, clientWebsocket).buildHtml();
-});
+// router.addRoute("client", `client/${savedData._techOverlayStore._label_userId}`, () => {
+//   new ClientPage(savedData, clientWebsocket).buildHtml();
+// });
 
 //Start router when content is loaded
 document.addEventListener("DOMContentLoaded", function () {

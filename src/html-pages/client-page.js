@@ -12,7 +12,6 @@ class ClientPage {
     document.addEventListener("aoe-websocket-event", this.digestWebsocketMessage.bind(this));
   }
   buildHtml() {
-    this.initClientDefaults();
     const bodyContent = document.getElementById("dynamic-content");
 
     const clientPageDOM = document.createElement("div");
@@ -50,13 +49,6 @@ class ClientPage {
       }
     }
   }
-
-  initClientDefaults() {
-    document.getElementById("header").remove();
-    document.getElementById("footer").remove();
-    document.body.classList.add("client-body");
-  }
-
   getRandomCiv() {
     const civNames = getCivNames();
     return civNames[this.randomIntFromInterval(0, civNames.length - 1)].toLowerCase();

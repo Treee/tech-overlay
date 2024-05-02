@@ -61,14 +61,16 @@ class DefaultHTMLPageElements {
     const roundManager = document.createElement("div");
     roundManager.innerHTML = "| ROUNDS |";
     roundManager.addEventListener("click", (event) => {
-      window.location.href = "#matchset";
+      //   window.location.href = "#matchset";
+      alert("Not yet implemented");
     });
 
     const settingsPageRoute = document.createElement("div");
     settingsPageRoute.innerHTML = "| CLIENT |";
     settingsPageRoute.addEventListener("click", (event) => {
-      window.open(`#client/${this._dataStore._techOverlayStore._label_userId}`, "_blank");
+      //   window.open(`#client/${this._dataStore._techOverlayStore._label_userId}`, "_blank");
       // window.location.href = `#client/${this._dataStore._techOverlayStore._label_userId}`;
+      window.open(`/tech-overlay/client#${this._dataStore._techOverlayStore._label_userId}`, "_blank");
     });
 
     element.appendChild(adminPageRoute);

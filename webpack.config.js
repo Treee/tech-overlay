@@ -4,7 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    index: "./src/index.js",
+    admin: "./src/index.js",
+    client: "./src/index-client.js",
   },
   devtool: "inline-source-map",
   devServer: {
@@ -15,6 +16,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "AoE Tech Overlay",
       favicon: "./src/favicon.ico",
+      chunks: ["admin"],
+      filename: "index.html",
+    }),
+    new HtmlWebpackPlugin({
+      title: "AoE Tech Overlay",
+      favicon: "./src/favicon.ico",
+      chunks: ["client"],
+      filename: "client.html",
     }),
   ],
   output: {

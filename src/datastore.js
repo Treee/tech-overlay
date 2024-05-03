@@ -19,14 +19,21 @@ class UISettingsOverlayStore {
   _fontSize = 22;
   _techBackgroundOpacity = 0.8;
 }
+class SensitiveDataStore {
+  _websocket_ip = "";
+  _websocket_password = "";
+  _websocket_port = 4455;
+}
 
 class LocalSavedData {
   _techOverlayStore;
   _uiSettingsOverlayStore;
+  _sensitiveDataStore;
 
   constructor() {
     this._techOverlayStore = new TechnologyOverlayStore();
     this._uiSettingsOverlayStore = new UISettingsOverlayStore();
+    this._sensitiveDataStore = new SensitiveDataStore();
   }
 
   saveData() {
@@ -34,6 +41,8 @@ class LocalSavedData {
     localStorage.setItem("techOverlayStore", JSON.stringify(this._techOverlayStore));
     // console.log(`Saving ${this._uiSettingsOverlayStore}`);
     localStorage.setItem("uiSettingsOverlayStore", JSON.stringify(this._uiSettingsOverlayStore));
+    // console.log("Saving", this._sensitiveDataStore);
+    localStorage.setItem("sensitiveDataStore", JSON.stringify(this._sensitiveDataStore));
   }
 
   loadData() {
@@ -42,6 +51,7 @@ class LocalSavedData {
       Object.assign(this._techOverlayStore, techData);
       // console.log(this._techOverlayStore._label_userId);
       if (!this._techOverlayStore._label_userId) {
+        // this._techOverlayStore._label_userId = crypto.randomUUID();
         this._techOverlayStore._label_userId = crypto.randomUUID();
       }
       // this._techOverlayStore = techData;
@@ -50,6 +60,12 @@ class LocalSavedData {
     if (uiData) {
       Object.assign(this._uiSettingsOverlayStore, uiData);
       // this._uiSettingsOverlayStore = uiData;
+    }
+    const sensitiveData = JSON.parse(localStorage.getItem("sensitiveDataStore"));
+    if (sensitiveData) {
+      Object.assign(this._sensitiveDataStore, sensitiveData);
+      //   console.log("Loaded", this._sensitiveDataStore);
+      // this._sensitiveDataStore = sensitiveData;
     }
   }
 

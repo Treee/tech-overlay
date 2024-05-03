@@ -134,11 +134,29 @@ class TechOverlayControl {
   }
 
   onClearClicked(event) {
-    this._clientWebsocket.sendMessage(SocketEnums.AGEOVERLAYPUSH, this.buildPayload(false));
+    const requestType = "CallVendorRequest";
+    const requestData = {
+      vendorName: "obs-browser",
+      requestType: "emit_event",
+      requestdata: {
+        event_name: "obs-websocket-overlay-push-event",
+        event_data: { AGEOVERLAYPUSH: this.buildPayload(false) },
+      },
+    };
+    this._clientWebsocket.call(requestType, requestData);
     this._civList.resetState();
   }
   onShowClicked(event) {
-    this._clientWebsocket.sendMessage(SocketEnums.AGEOVERLAYPUSH, this.buildPayload(true));
+    const requestType = "CallVendorRequest";
+    const requestData = {
+      vendorName: "obs-browser",
+      requestType: "emit_event",
+      requestdata: {
+        event_name: "obs-websocket-overlay-push-event",
+        event_data: { AGEOVERLAYPUSH: this.buildPayload(true) },
+      },
+    };
+    this._clientWebsocket.call(requestType, requestData);
   }
 
   buildPayload(show) {

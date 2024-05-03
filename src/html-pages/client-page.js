@@ -9,7 +9,7 @@ class ClientPage {
     this._dataStore = dataStore;
     this._clientWebsocket = clientWebsocket;
     this._techOverlay = new CivTechOverlay();
-    document.addEventListener("aoe-websocket-event", this.digestWebsocketMessage.bind(this));
+    document.addEventListener("obs-websocket-overlay-push-event", this.digestWebsocketMessage.bind(this));
   }
   buildHtml() {
     const bodyContent = document.getElementById("dynamic-content");
@@ -23,6 +23,7 @@ class ClientPage {
   digestWebsocketMessage(event) {
     if (event) {
       const rawData = JSON.parse(event.detail.data);
+      console.log(rawData);
       if (rawData.type === SocketEnums.AGEOVERLAYPUSH) {
         const clientPage = document.getElementById("client-page");
         this._techOverlay.clearCivDivs();

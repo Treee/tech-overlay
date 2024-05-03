@@ -62,6 +62,26 @@ html {
   display: flex;
   flex-direction: column;
 }
+.websocket-controls {
+  display: inline-flex;
+  justify-content: space-evenly;
+  width: 50%;
+  align-self: center;
+  align-items: center;
+}
+.websocket-setting-button {
+  border-radius: 1rem;
+  color: white;
+  padding: 1rem 3rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 2rem;
+}
+.websocket-input {
+  height: 1.5rem;
+}
 
 .left-column {
   display: flex;

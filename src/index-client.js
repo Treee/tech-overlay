@@ -10,8 +10,13 @@ savedData.saveData();
 
 const obs = new OBSWebSocket();
 
+// https://treee.github.io/tech-overlay/client#guid:password
+const url = window.location.href;
+const urlParts = url.split("#");
+const importantParts = urlParts[1].split(":");
 // await obs.connect(`ws://${savedData._sensitiveDataStore._websocket_ip}:${savedData._sensitiveDataStore._websocket_port}`, savedData._sensitiveDataStore._websocket_password);
-await obs.connect(`ws://127.0.0.1:${savedData._sensitiveDataStore._websocket_port}`, savedData._sensitiveDataStore._websocket_password);
+await obs.connect(`ws://127.0.0.1:4455`, importantParts[1]);
+console.log(`ws://127.0.0.1:4455 pw:${importantParts[1]}`);
 
 obs.on("ConnectionOpened", () => {
   console.log("CLIENT CONNECTED TO OBS WEBSOCKET");

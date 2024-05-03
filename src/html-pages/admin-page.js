@@ -75,6 +75,10 @@ class AdminPage {
     let ipParts = ip.split(".");
     let formattedIp = "";
     let isValidIp = false;
+    if (ip.indexOf(".ngrok-free.app") > 0) {
+      formattedIp = ip;
+      isValidIp = true;
+    }
     if (ipParts.length === 4) {
       // ipv4
       formattedIp = ip;

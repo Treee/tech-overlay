@@ -11,7 +11,7 @@ savedData.saveData();
 const obs = new OBSWebSocket();
 
 // await obs.connect(`ws://${savedData._sensitiveDataStore._websocket_ip}:${savedData._sensitiveDataStore._websocket_port}`, savedData._sensitiveDataStore._websocket_password);
-await obs.connect(`wss://127.0.0.1:${savedData._sensitiveDataStore._websocket_port}`, savedData._sensitiveDataStore._websocket_password);
+await obs.connect(`ws://127.0.0.1:${savedData._sensitiveDataStore._websocket_port}`, savedData._sensitiveDataStore._websocket_password);
 
 obs.on("ConnectionOpened", () => {
   console.log("CLIENT CONNECTED TO OBS WEBSOCKET");

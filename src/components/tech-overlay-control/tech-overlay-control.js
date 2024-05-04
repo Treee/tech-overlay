@@ -134,29 +134,17 @@ class TechOverlayControl {
   }
 
   onClearClicked(event) {
-    const requestType = "CallVendorRequest";
-    const requestData = {
-      vendorName: "obs-browser",
-      requestType: "emit_event",
-      requestdata: {
-        event_name: "obs-websocket-overlay-push-event",
-        event_data: { AGEOVERLAYPUSH: this.buildPayload(false) },
-      },
+    const data = {
+      eventData: { AGEOVERLAYPUSH: this.buildPayload(false) },
     };
-    this._clientWebsocket.call(requestType, requestData);
+    this._clientWebsocket.call("BroadcastCustomEvent", data);
     this._civList.resetState();
   }
   onShowClicked(event) {
-    const requestType = "CallVendorRequest";
-    const requestData = {
-      vendorName: "obs-browser",
-      requestType: "emit_event",
-      requestdata: {
-        event_name: "obs-websocket-overlay-push-event",
-        event_data: { AGEOVERLAYPUSH: this.buildPayload(true) },
-      },
+    const data = {
+      eventData: { AGEOVERLAYPUSH: this.buildPayload(true) },
     };
-    this._clientWebsocket.call(requestType, requestData);
+    this._clientWebsocket.call("BroadcastCustomEvent", data);
   }
 
   buildPayload(show) {

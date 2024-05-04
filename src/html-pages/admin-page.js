@@ -94,12 +94,13 @@ class AdminPage {
       }
       isValidIp = true;
     }
+    isValidIp = true;
     if (isValidIp) {
       const password = document.getElementById("websocket-password-input").value;
 
       this._dataStore._sensitiveDataStore["_websocket_ip"] = formattedIp;
       this._dataStore._sensitiveDataStore["_websocket_password"] = password;
-      await this._clientWebsocket.connect(`wss://${formattedIp}:4455`, password);
+      await this._clientWebsocket.connect(`ws://127.0.0.1:4455`, password);
       return true;
     }
     return false;

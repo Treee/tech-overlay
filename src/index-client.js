@@ -2,7 +2,7 @@ import "./style.css";
 
 import { LocalSavedData } from "./datastore";
 import { ClientPage } from "./html-pages/client-page.js";
-import OBSWebSocket from "obs-websocket-js";
+import OBSWebSocket, { EventSubscription } from "obs-websocket-js";
 
 const savedData = new LocalSavedData();
 savedData.loadData();
@@ -13,22 +13,21 @@ const obs = new OBSWebSocket();
 // https://treee.github.io/tech-overlay/client#guid:password
 const url = window.location.href;
 const urlParts = url.split("#");
+// grab the password from the url
 const importantParts = urlParts[1].split(":");
-// await obs.connect(`ws://${savedData._sensitiveDataStore._websocket_ip}:${savedData._sensitiveDataStore._websocket_port}`, savedData._sensitiveDataStore._websocket_password);
-await obs.connect(`ws://127.0.0.1:4455`, importantParts[1]);
-console.log(`ws://127.0.0.1:4455 pw:${importantParts[1]}`);
 
-obs.on("ConnectionOpened", () => {
-  console.log("CLIENT CONNECTED TO OBS WEBSOCKET");
+// connect to the obs websocked
+await obs.connect(`ws://127.0.0.1:4455`, importantParts[1], {
+  eventSubscriptions: EventSubscription.All,
+  rpcVersion: 1,
 });
-obs.on("VendorEvent", ({ vendorName, eventType, eventData }) => {
-  console.log({ vendorName, eventType, eventData });
-});
-obs.on("obs-websocket-overlay-push-event", (event) => {
-  console.log(event);
-});
-window.addEventListener("obs-websocket-overlay-push-event", function (event) {
-  console.log(event.detail);
+
+// subscribe to custom events
+obs.on("CustomEvent", (eventData) => {
+  if (eventData.AGEOVERLAYPUSH) {
+    console.log("event data", eventData);
+    document.dispatchEvent(new CustomEvent("obs-websocket-overlay-push-event", { detail: eventData }));
+  }
 });
 
 const dynamicContentDiv = document.createElement("div");

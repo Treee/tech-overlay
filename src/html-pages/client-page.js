@@ -22,23 +22,22 @@ class ClientPage {
 
   digestWebsocketMessage(event) {
     if (event) {
-      const rawData = JSON.parse(event.detail.data);
-      console.log(rawData);
-      if (rawData.type === SocketEnums.AGEOVERLAYPUSH) {
+      const rawData = event.detail.AGEOVERLAYPUSH;
+      if (rawData) {
         const clientPage = document.getElementById("client-page");
         this._techOverlay.clearCivDivs();
-        if (rawData.data.showOverlay) {
-          const additionalOptions = (({ _showBlacksmithTech, _showUniversityTech, _showMonastaryTech }) => ({ _showBlacksmithTech, _showUniversityTech, _showMonastaryTech }))(rawData.data);
-          rawData.data.pickedCivs.forEach((pickedCiv) => {
-            if (rawData.data._autoHide) {
-              clientPage.appendChild(this._techOverlay.buildElement(pickedCiv.toLowerCase(), additionalOptions, parseInt(rawData.data._autoHideDelay) * 1000));
+        if (rawData.showOverlay) {
+          const additionalOptions = (({ _showBlacksmithTech, _showUniversityTech, _showMonastaryTech }) => ({ _showBlacksmithTech, _showUniversityTech, _showMonastaryTech }))(rawData);
+          rawData.pickedCivs.forEach((pickedCiv) => {
+            if (rawData._autoHide) {
+              clientPage.appendChild(this._techOverlay.buildElement(pickedCiv.toLowerCase(), additionalOptions, parseInt(rawData._autoHideDelay) * 1000));
             } else {
               clientPage.appendChild(this._techOverlay.buildElement(pickedCiv.toLowerCase(), additionalOptions, -1));
             }
           });
 
-          if (rawData.data.pickedCivs.length > 0) {
-            if (rawData.data._useSound) {
+          if (rawData.pickedCivs.length > 0) {
+            if (rawData._useSound) {
               const soundElement = this._techOverlay.buildSounds();
               clientPage.appendChild(soundElement);
               setTimeout(() => {

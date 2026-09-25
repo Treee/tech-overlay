@@ -1,9 +1,81 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>AoE Tech Overlay</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="favicon.ico"><script defer src="runtime.bundle.js"></script><script defer src="admin.bundle.js"></script></head>
-  <body>
-  </body>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>AoE II Overlay · Control</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <main>
+            <header>
+                <p class="eyebrow">AGE OF EMPIRES II</p>
+                <h1>Civilization overlay</h1>
+                <p id="status" role="status">Loading civilization data…</p>
+            </header>
+            <details class="panel" id="connection-panel" open><summary>Display connection <span id="connection-badge" class="connection-badge">Disconnected</span></summary><div class="panel-content">
+                
+                <p>In OBS, open Tools ? WebSocket Server Settings and enable the server. Enter its password below.</p>
+                <div class="connection">
+                    <label>OBS address <input id="obs-address" value="ws://127.0.0.1:4455" /></label><label>Password <input id="obs-password" type="password" autocomplete="off" /></label
+                    ><button id="connect">Connect &amp; save</button>
+                </div>
+                <p>Copy the generated URL into an OBS Browser Source. Settings are remembered on this browser. This URL contains your OBS password; keep it private.</p>
+                <div class="connection">
+                    <input id="client-url" readonly aria-label="OBS Browser Source URL" /><button id="copy">Copy URL</button><a id="preview" href="overlay.html" target="_blank" rel="noopener">Preview ↗</a>
+                </div>
+            </div></details>
+            <details class="panel" open><summary>Choose civilizations</summary><div class="panel-content">
+                
+                <p>Each selection adds a player slot. Select a civilization again for mirror matches.</p>
+                <label>Find a civilization <input id="search" type="search" placeholder="Search civilizations" /></label>
+                <div id="civs" class="civ-grid"></div>
+                <h3>Player order <small>(up to 8)</small></h3>
+                <div id="picks" class="picks"></div>
+            </div></details>
+            <details class="panel" open><summary>Display style</summary><div class="panel-content">
+                
+                <div class="groups">
+                    <label
+                        >Theme
+                        <select id="theme">
+                            <option value="compact">Compact</option>
+                            <option value="classic">Classic parchment</option>
+                        </select></label
+                    ><label
+                        >Layout
+                        <select id="layout">
+                            <option value="auto">Automatic</option>
+                            <option value="single">Single</option>
+                            <option value="duel">Two-player comparison</option>
+                            <option value="teams">Teams</option>
+                        </select></label
+                    ><label
+                        >Technology detail
+                        <select id="detail">
+                            <option value="summary">Aligned summaries</option>
+                            <option value="expanded">Expanded groups</option>
+                        </select></label
+                    >
+                </div>
+                <p>Preview changes stay local until you click Show. Automatic layout follows the number of selected players.</p>
+                
+            </div></details>
+            <details class="panel" open><summary>Technology groups</summary><div class="panel-content">
+                
+                <p>
+                    Choose the building icons to display in either theme. Economy combines farming, wood, mining, and market upgrades into tier summaries; Castle includes unique technologies and units. Compact summaries
+                    condense Blacksmith and Monastery; other selections show their unit and technology icons.
+                </p>
+                <div id="groups" class="groups"></div>
+                <label>Hide after <input id="duration" type="number" value="12" min="0" max="300" /> seconds (0 keeps it visible)</label>
+                
+                <p>Show and Clear apply to every connected display. The last submitted command wins.</p>
+            </div></details>
+            <section class="panel display-actions"><div class="actions"><button id="show" class="primary">Show overlay</button><button id="clear">Clear overlay</button></div></section><section class="panel"><h2>Display preview</h2><div class="preview-stage"><iframe id="display-preview" src="overlay.html?preview=1" title="1920 by 1080 overlay preview"></iframe></div></section>
+<footer>Data and artwork supplied by the SiegeEngineers aoe2techtree submodule. Age of Empires II © Microsoft. This project is not affiliated with Microsoft.</footer>
+        </main>
+        <script src="vendor/obs-ws.min.js"></script>
+        <script type="module" src="app.js"></script>
+    </body>
 </html>
